@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Heading, Image, Text, Link, Button, Grid, GridItem, Flex } from '@chakra-ui/react';
+import { Box, Heading, Image, Text, Link, Button, Grid, GridItem, Badge, Flex } from '@chakra-ui/react';
 
 const CollectionCard = ({ title, images, date, itemCount, itemLink }) => {
   return (
@@ -7,13 +7,23 @@ const CollectionCard = ({ title, images, date, itemCount, itemLink }) => {
       <Grid templateColumns="repeat(3, 1fr)" gap={1}>
         {/* Map through the images and display them in a grid */}
         {images.map((image, index) => (
-          <GridItem key={index} colSpan={index === images.length - 1 && image.counter ? 2 : 1} position="relative">
+          <GridItem key={index} colSpan={1} position="relative">
             <Image src={image.src} alt={image.alt} objectFit="cover" width="100%" height="100%" />
             {/* If the image has a counter, display it */}
             {image.counter && (
-              <Text position="absolute" top="0" right="0" m={2} bg="red.500" color="white" borderRadius="md" p={1}>
+              <Badge
+                position="absolute"
+                bottom="0"
+                right="0"
+                m={2}
+                bg="red.500"
+                color="white"
+                borderRadius="full"
+                px={3}
+                py={1}
+              >
                 +{image.counter}
-              </Text>
+              </Badge>
             )}
           </GridItem>
         ))}

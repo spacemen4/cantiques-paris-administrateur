@@ -7,6 +7,7 @@ import BuyPage from "./pages/BuyPage";
 import SellPage from "./pages/SellPage";
 import ArtChoices from "./components/ArtChoices";
 import CollectionCard from "./components/CollectionCard";
+import ItemForSale from "./components/ItemForSale";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Header />
         <ArtChoices/>
         <CollectionCard/>
+        <ItemForSale/>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/buy" element={<BuyPage />} />
