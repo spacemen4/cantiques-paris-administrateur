@@ -1,20 +1,22 @@
 import React from "react";
 import { Flex, Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom"; // Assuming you are using React Router
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <Flex as="header" width="100%" align="center" justify="center" p="4">
-      {/* Inner Flex container to group buttons and apply defined spacing */}
-      <Flex gap="2" align="center"> {/* Adjust the gap value as needed for your design */}
-        <Link to="/">
-          <Button variant="ghost">Home</Button>
+      <Flex gap="2" align="center">
+        <Link to="/art">
+          {/* Assuming "Art" might be vibrant and expressive */}
+          <Button variant="ghost" colorScheme="pink">Art</Button>
         </Link>
-        <Link to="/buy">
-          <Button variant="ghost">Buy</Button>
+        <Link to="/interieur">
+          {/* "Intérieur" could be associated with calmness and comfort */}
+          <Button variant="ghost" colorScheme="blue">Intérieur</Button>
         </Link>
-        <Link to="/sell">
-          <Button variant="ghost">Sell</Button>
+        <Link to="/bijoux">
+          {/* "Bijoux" suggests luxury and refinement */}
+          <Button variant="ghost" colorScheme="purple">Bijoux</Button>
         </Link>
       </Flex>
     </Flex>

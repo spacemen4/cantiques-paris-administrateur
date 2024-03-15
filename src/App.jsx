@@ -5,12 +5,14 @@ import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import BuyPage from "./pages/BuyPage";
 import SellPage from "./pages/SellPage";
+import ArtChoices from "./components/ArtChoices";
 
 const App = () => {
   return (
     <ChakraProvider>
       <Router>
         <Header />
+        <ArtChoices/>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/buy" element={<BuyPage />} />
