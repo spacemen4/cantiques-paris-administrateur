@@ -1,8 +1,10 @@
 import React from 'react';
-import { Flex, Button, Text, Spacer } from '@chakra-ui/react';
+import { Flex, Button, Text, Spacer, Divider } from '@chakra-ui/react';
 
 const FooterComponent = () => {
   return (
+    <>
+    <Divider borderColor="blue.600" />
     <Flex bg="white" color="blue.600" align="center" p="2" justify="center" wrap="wrap">
     {/* Logo and category dropdown */}
     <Flex align="center" mr={{ base: 2, sm: 4 }}>
@@ -12,7 +14,7 @@ const FooterComponent = () => {
       align="center"
       justifyContent="center"
       p="4"
-      bg="gray.100"
+
       color="blue.600"
     >
       <Button colorScheme="blue" mr="4">
@@ -28,6 +30,8 @@ const FooterComponent = () => {
     </Flex>
     </Flex>
     </Flex>
+    <Divider borderColor="blue.600" />
+    </>
   );
 };
 
