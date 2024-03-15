@@ -8,11 +8,13 @@ import SellPage from "./pages/SellPage";
 import ArtChoices from "./components/ArtChoices";
 import CollectionCard from "./components/CollectionCard";
 import ItemForSale from "./components/ItemForSale";
+import HeaderTop from "./components/HeaderTop";
 
 const App = () => {
   return (
     <ChakraProvider>
       <Router>
+        <HeaderTop/>
         <Header />
         <ArtChoices/>
         <CollectionCard/>
