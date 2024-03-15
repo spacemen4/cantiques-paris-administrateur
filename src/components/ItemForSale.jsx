@@ -7,7 +7,7 @@ import {
   Badge,
   IconButton,
   useColorModeValue,
-  Spacer,
+Spacer,
 } from '@chakra-ui/react';
 import { FaHeart } from 'react-icons/fa';
 
@@ -28,24 +28,25 @@ const SaleItemCard = ({ imageUrl, title, price, daysLeft, likes }) => {
             variant="ghost"
             isRound={true}
           />
-          <Badge ml="2" fontSize="0.8em" colorScheme="blue">
+          <Badge ml="2" fontSize="0.8em" colorScheme="blue" borderRadius="full">
             {likes}
           </Badge>
           <Spacer />
-          <Badge colorScheme="teal">OFFRE ACTUELLE</Badge>
-        </Flex>
+            
+                  </Flex>
 
         <Flex align="baseline" mt="2">
           <Text fontWeight="bold" textTransform="uppercase" fontSize="sm" letterSpacing="wide">
             {title}
           </Text>
-        </Flex>
+          </Flex>
 
         <Flex mt="2" justifyContent="space-between" align="center">
+        <Badge colorScheme="teal">OFFRE ACTUELLE</Badge>
           <Text fontWeight="semibold" fontSize="lg">
             {price} €
           </Text>
-          <Badge colorScheme="orange" fontSize="0.8em">
+          <Badge colorScheme="orange" fontSize="0.8em" borderRadius="full">
             Il reste {daysLeft} jour
           </Badge>
         </Flex>
@@ -57,7 +58,7 @@ const SaleItemCard = ({ imageUrl, title, price, daysLeft, likes }) => {
 const ItemForSale = () => {
   // Replace the dummy data with real data
   const itemData = {
-    imageUrl: 'path_to_image.jpg', // Replace with your image path
+    imageUrl: '/images/items/wharol.jpg', // Replace with your image path
     title: 'Andy Warhol (after) - Revolver - Big Size XXL',
     price: '112',
     daysLeft: '1',
