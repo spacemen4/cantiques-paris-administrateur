@@ -18,7 +18,7 @@ const HeaderTop = () => {
       {/* Logo and category dropdown */}
       <Flex align="center" mr={{ base: 2, sm: 4 }}>
         <Text fontSize="2xl" fontWeight="bold" mr="4">
-          catawiki
+          Cantiques-Paris
         </Text>
         <Button rightIcon={<ChevronDownIcon />} colorScheme="blue" variant="ghost">
           Catégories
