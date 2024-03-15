@@ -1,51 +1,37 @@
 import React from 'react';
-import { Box, Heading, Image, Text, Flex, Link, Button, SimpleGrid } from '@chakra-ui/react';
+import { Box, Heading, Image, Text, Link, Button, Grid, GridItem, Flex } from '@chakra-ui/react';
 
 const CollectionCard = ({ title, images, date, itemCount, itemLink }) => {
   return (
-    <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Flex direction="row" overflowX="scroll">
-        {/* Dummy images */}
+    <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
+      <Grid templateColumns="repeat(3, 1fr)" gap={1}>
+        {/* Map through the images and display them in a grid */}
         {images.map((image, index) => (
-          <Box key={index} position="relative" minW="sm">
-            <Image src={image.src} alt={image.alt} objectFit="cover" width="100%" height="200px" />
+          <GridItem key={index} colSpan={index === images.length - 1 && image.counter ? 2 : 1} position="relative">
+            <Image src={image.src} alt={image.alt} objectFit="cover" width="100%" height="100%" />
+            {/* If the image has a counter, display it */}
             {image.counter && (
-              <Text position="absolute" bottom="2" right="2" bg="whiteAlpha.800" p="1">
+              <Text position="absolute" top="0" right="0" m={2} bg="red.500" color="white" borderRadius="md" p={1}>
                 +{image.counter}
               </Text>
             )}
-          </Box>
+          </GridItem>
         ))}
-      </Flex>
-      <Box p="6">
-        <Box d="flex" alignItems="baseline">
-          {date && (
-            <Box
-              color="gray.500"
-              fontWeight="semibold"
-              letterSpacing="wide"
-              fontSize="xs"
-              textTransform="uppercase"
-              mr="2"
-            >
-              {date}
-            </Box>
-          )}
-        </Box>
-
-        <Heading size="md" mt="1" lineHeight="tight" isTruncated>
+      </Grid>
+      <Box p={4}>
+        {date && (
+          <Text color="gray.500" fontWeight="semibold" letterSpacing="wide" fontSize="xs" textTransform="uppercase">
+            {date}
+          </Text>
+        )}
+        <Heading size="md" mt={1} lineHeight="tight" noOfLines={1}>
           {title}
         </Heading>
-
-        <Box>
-          {itemCount && (
-            <Text color="gray.600" fontSize="sm">
-              Découvrez les {itemCount} objets
-            </Text>
-          )}
-        </Box>
+        <Text color="gray.600" fontSize="sm">
+          {itemCount && `Découvrez les ${itemCount} objets`}
+        </Text>
       </Box>
-      <Flex justifyContent="flex-end" p="4">
+      <Flex justifyContent="flex-end" p={4}>
         <Link href={itemLink} isExternal>
           <Button size="sm" colorScheme="blue">
             Voir plus
@@ -61,9 +47,13 @@ const CollectionPreview = () => {
     {
       title: 'Collection d’artistes contemporains exclusifs',
       images: [
-        { src: './images/collections/collection1.jpg', alt: 'Image 1', counter: '424' },
+        { src: './images/collections/collection1.jpg', alt: 'Image 1'},
         { src: './images/collections/collection2.jpg', alt: 'Image 2' },
         { src: './images/collections/collection3.jpg', alt: 'Image 3' },
+        { src: './images/collections/collection2.jpg', alt: 'Image 2' },
+        { src: './images/collections/collection3.jpg', alt: 'Image 3' },
+        { src: './images/collections/collection3.jpg', alt: 'Image 3', counter: '424' },
+        // Add more images if needed
       ],
       date: '23 et 24 mars',
       itemCount: '116',
@@ -73,11 +63,11 @@ const CollectionPreview = () => {
   ];
 
   return (
-    <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
+    <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }} gap={6}>
       {dummyCollections.map((collection, index) => (
         <CollectionCard key={index} {...collection} />
       ))}
-    </SimpleGrid>
+    </Grid>
   );
 };
 
