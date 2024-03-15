@@ -7,7 +7,6 @@ import {
   Badge,
   IconButton,
   useColorModeValue,
-Spacer,
 } from '@chakra-ui/react';
 import { FaHeart } from 'react-icons/fa';
 
@@ -16,39 +15,44 @@ const SaleItemCard = ({ imageUrl, title, price, daysLeft, likes }) => {
 
   return (
     <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" bg={cardBg}>
-      <Image src={imageUrl} alt={title} />
+      <Box position="relative">
+        <Image src={imageUrl} alt={title} borderRadius="lg" />
 
-      <Box p="6">
-        <Flex alignItems="center">
+        <Box position="absolute" top="2" right="2" d="flex" alignItems="center">
           <IconButton
             aria-label={`Like ${title}`}
             icon={<FaHeart />}
             size="sm"
-            colorScheme="blue"
-            variant="ghost"
-            isRound={true}
+            colorScheme="teal"
+            variant="solid"
+            borderRadius="full"
           />
-          <Badge ml="2" fontSize="0.8em" colorScheme="blue" borderRadius="full">
+          <Badge ml="2" colorScheme="blue" borderRadius="full">
             {likes}
           </Badge>
-          <Spacer />
-            
-                  </Flex>
+        </Box>
+      </Box>
 
-        <Flex align="baseline" mt="2">
+      <Box p="6">
+        <Flex direction="column" mt="2">
           <Text fontWeight="bold" textTransform="uppercase" fontSize="sm" letterSpacing="wide">
             {title}
           </Text>
+          
+          <Flex justifyContent="space-between" alignItems="center" mt="4">
+            <Badge colorScheme="teal" borderRadius="full" px="2">
+              OFFRE ACTUELLE
+            </Badge>
+            <Text fontWeight="bold" fontSize="2xl">
+              {price} €
+            </Text>
           </Flex>
 
-        <Flex mt="2" justifyContent="space-between" align="center">
-        <Badge colorScheme="teal">OFFRE ACTUELLE</Badge>
-          <Text fontWeight="semibold" fontSize="lg">
-            {price} €
-          </Text>
-          <Badge colorScheme="orange" fontSize="0.8em" borderRadius="full">
-            Il reste {daysLeft} jour
-          </Badge>
+          <Flex justifyContent="flex-end" mt="4">
+            <Badge colorScheme="orange" fontSize="0.8em" borderRadius="full" px="2">
+              Il reste {daysLeft} jour
+            </Badge>
+          </Flex>
         </Flex>
       </Box>
     </Box>
@@ -56,9 +60,8 @@ const SaleItemCard = ({ imageUrl, title, price, daysLeft, likes }) => {
 };
 
 const ItemForSale = () => {
-  // Replace the dummy data with real data
   const itemData = {
-    imageUrl: '/images/items/wharol.jpg', // Replace with your image path
+    imageUrl: '/images/items/wharol.jpg', // Replace with your actual image path
     title: 'Andy Warhol (after) - Revolver - Big Size XXL',
     price: '112',
     daysLeft: '1',
