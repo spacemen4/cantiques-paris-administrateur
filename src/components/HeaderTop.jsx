@@ -14,9 +14,9 @@ import { FaHeart } from 'react-icons/fa';
 
 const HeaderTop = () => {
   return (
-    <Flex bg="white" color="blue.600" align="center" p="2" justify="space-between">
+    <Flex bg="white" color="blue.600" align="center" p="2" justify="center" wrap="wrap">
       {/* Logo and category dropdown */}
-      <Flex align="center">
+      <Flex align="center" mr={{ base: 2, sm: 4 }}>
         <Text fontSize="2xl" fontWeight="bold" mr="4">
           catawiki
         </Text>
