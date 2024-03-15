@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import BuyPage from "./pages/BuyPage";
 import SellPage from "./pages/SellPage";
 import ArtChoices from "./components/ArtChoices";
+import CollectionCard from "./components/CollectionCard";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Router>
         <Header />
         <ArtChoices/>
+        <CollectionCard/>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/buy" element={<BuyPage />} />
