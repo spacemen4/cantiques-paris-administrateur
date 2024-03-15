@@ -9,6 +9,7 @@ import ArtChoices from "./components/ArtChoices";
 import CollectionCard from "./components/CollectionCard";
 import ItemForSale from "./components/ItemForSale";
 import HeaderTop from "./components/HeaderTop";
+import FooterComponent from "./components/FooterComponent";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <ArtChoices/>
         <CollectionCard/>
         <ItemForSale/>
+        <FooterComponent/>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/buy" element={<BuyPage />} />
