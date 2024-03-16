@@ -13,18 +13,18 @@ const SubChoiceCard = ({ imageSrc, title }) => {
 };
 
 const categories = [
-  { title: "Antiquités", imageSrc: "public/images/InterieurPage/antiquites.jpg" },
-  { title: "Argenterie et Orfèvrerie", imageSrc: "public/images/InterieurPage/argenterie.jpg" },
-  { title: "Art de la table", imageSrc: "public/images/InterieurPage/artdelatable.jpg" },
-  { title: "Art nouveau et Art déco", imageSrc: "public/images/InterieurPage/artnouveauartdeco.jpg" },
-  { title: "Design & Marques Iconiques", imageSrc: "public/images/InterieurPage/designmarquesiconiques.jpg" },
-  { title: "Horloges", imageSrc: "public/images/InterieurPage/horloges.jpg" },
-  { title: "Idées Maison", imageSrc: "public/images/InterieurPage/ideesmaison.jpg" },
-  { title: "Luminaires", imageSrc: "public/images/InterieurPage/luminaires.jpg" },
-  { title: "Objets décoratifs", imageSrc: "public/images/InterieurPage/objetsdecoratifs.jpg" },
-  { title: "Plantes et jardins", imageSrc: "public/images/InterieurPage/plantesetjardins.jpg" },
-  { title: "Tapis", imageSrc: "public/images/InterieurPage/tapis.jpg" },
-  { title: "Vintage et industriel", imageSrc: "public/images/InterieurPage/vintageindustriel.jpg" }
+  { title: "Antiquités", imageSrc: "/images/InterieurPage/antiquites.jpg" },
+  { title: "Argenterie et Orfèvrerie", imageSrc: "/images/InterieurPage/argenterie.jpg" },
+  { title: "Art de la table", imageSrc: "/images/InterieurPage/artdelatable.jpg" },
+  { title: "Art nouveau et Art déco", imageSrc: "/images/InterieurPage/artnouveauartdeco.jpg" },
+  { title: "Design & Marques Iconiques", imageSrc: "/images/InterieurPage/designetmarqueiconique.jpg" },
+  { title: "Horloges", imageSrc: "/images/InterieurPage/horloge.jpg" },
+  { title: "Idées Maison", imageSrc: "/images/InterieurPage/ideemaison.jpg" },
+  { title: "Luminaires", imageSrc: "/images/InterieurPage/luminaires.jpg" },
+  { title: "Objets décoratifs", imageSrc: "/images/InterieurPage/objetdecoratifs.jpg" },
+  { title: "Plantes et jardins", imageSrc: "/images/InterieurPage/plantesetjardins.jpg" },
+  { title: "Tapis", imageSrc: "/images/InterieurPage/tapis.jpg" },
+  { title: "Vintage et industriel", imageSrc: "/images/InterieurPage/vintagesindustriels.jpg" }
 ];
 
 const InterieurPage = () => {
