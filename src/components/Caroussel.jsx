@@ -1,28 +1,36 @@
 import React, { useState } from 'react';
-import { Box, Flex, IconButton } from '@chakra-ui/react';
+import { Box, Flex, IconButton, Badge } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
-const colors = ['red', 'green', 'blue', 'orange', 'purple', 'yellow', 'cyan', 'pink', 'teal', 'gray'];
+const data = [
+  { category: 'DESIGN · VINTAGE', description: 'Design et vintage · Sans prix de réserve', count: 2819 },
+  { category: 'INTÉRIEURS • DESIGN', description: 'Collection Intérieurs classiques exclusifs', count: 552 },
+  { category: 'INTÉRIEURS • DESIGN', description: 'Collection Intérieurs contemporains exclusifs', count: 392 },
+  { category: 'INTÉRIEURS · ANTIQUITÉS', description: 'Intérieurs classiques · Sans prix de réserve', count: 4676 },
+  { category: 'INTÉRIEURS • DESIGN • ART', description: 'Collection Salle à manger traditionnelle', count: 484 },
+  { category: 'INTÉRIEURS • DESIGN • ART', description: 'Collection Chambre de rêve', count: 285 },
+  { category: 'INTÉRIEURS • DESIGN • ART', description: 'Collection Salon contemporain', count: 335 }
+];
+
+const carouselColors = ['#FF9999', '#99FF99', '#9999FF', '#FFFF99', '#FF99FF', '#99FFFF', '#FFCC99'];
 
 const Carousel = () => {
   const [offset, setOffset] = useState(0);
 
-  // New dimensions after reducing by 33%
-  const originalHeight = 300; // Original height before reduction
-  const originalWidth = Math.round(originalHeight * 1.618); // Original width according to the Golden Ratio
-  const reductionFactor = 0.90; // Factor to reduce the dimensions by 33%
-  const boxHeight = Math.round(originalHeight * reductionFactor); // New height
-  const boxWidth = Math.round(originalWidth * reductionFactor); // New width
-  const boxMarginX = 16; // Assuming a margin of 2rem (16px per rem) on each side for simplicity
-  const totalBoxWidth = boxWidth + 2 * boxMarginX; // Total space occupied by each box including margin
+  const originalHeight = 300;
+  const originalWidth = Math.round(originalHeight * 1.618);
+  const reductionFactor = 0.90;
+  const boxHeight = Math.round(originalHeight * reductionFactor);
+  const boxWidth = Math.round(originalWidth * reductionFactor);
+  const boxMarginX = 16;
+  const totalBoxWidth = boxWidth + 2 * boxMarginX;
 
   const handlePrev = () => {
     setOffset((currentOffset) => Math.min(currentOffset + totalBoxWidth, 0));
   };
 
   const handleNext = () => {
-    // Ensure we move the carousel by the total width of each box, including margins
-    setOffset((currentOffset) => Math.max(currentOffset - totalBoxWidth, -(totalBoxWidth * (colors.length - 1))));
+    setOffset((currentOffset) => Math.max(currentOffset - totalBoxWidth, -(totalBoxWidth * (data.length - 1))));
   };
 
   return (
@@ -36,8 +44,27 @@ const Carousel = () => {
         zIndex={2}
       />
       <Flex transform={`translateX(${offset}px)`} transition="transform 0.2s ease-in-out">
-        {colors.map((color, index) => (
-          <Box key={index} w={`${boxWidth}px`} h={`${boxHeight}px`} bg={color} mx="2" />
+        {data.map((item, index) => (
+          <Box key={index} w={`${boxWidth}px`} h={`${boxHeight}px`} bg={carouselColors[index % carouselColors.length]} mx="2" position="relative">
+            <Badge
+              borderRadius="full"
+              px="2"
+              colorScheme="teal"
+              position="absolute"
+              top="0"
+              right="0"
+              mt="2"
+              mr="2"
+            >
+              {item.count}
+            </Badge>
+            <Box position="absolute" bottom="8" left="4" color="white" fontWeight="bold">
+              {item.category}
+            </Box>
+            <Box position="absolute" bottom="8" right="4" color="white" fontWeight="bold">
+              {item.description}
+            </Box>
+          </Box>
         ))}
       </Flex>
       <IconButton
