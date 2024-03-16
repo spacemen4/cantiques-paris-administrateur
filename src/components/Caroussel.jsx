@@ -80,13 +80,6 @@ const Carousel = () => {
           zIndex={2}
         />
       </Flex>
-      <Flex w="full" justify="space-between" px="4" mt="2">
-        {data.map((item, index) => (
-          <Text key={index} fontWeight="bold" color="gray.700">
-            DÉCOUVREZ LES {item.count} OBJETS
-          </Text>
-        ))}
-      </Flex>
     </Flex>
   );
 };
