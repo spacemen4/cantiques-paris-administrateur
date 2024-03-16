@@ -1,23 +1,26 @@
 import React from "react";
 import { Flex, Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Header = () => {
+  const history = useHistory();
+
+  const handleButtonClick = (route) => {
+    history.push(route);
+  };
+
   return (
     <Flex as="header" width="100%" align="center" justify="center" p="4">
       <Flex gap="2" align="center">
-        <Link to="/art">
-          {/* Assuming "Art" might be vibrant and expressive */}
-          <Button variant="ghost" colorScheme="pink">Art</Button>
-        </Link>
-        <Link to="/interieur">
-          {/* "Intérieur" could be associated with calmness and comfort */}
-          <Button variant="ghost" colorScheme="blue">Intérieur</Button>
-        </Link>
-        <Link to="/bijoux">
-          {/* "Bijoux" suggests luxury and refinement */}
-          <Button variant="ghost" colorScheme="purple">Bijoux</Button>
-        </Link>
+        <Button variant="ghost" colorScheme="pink" onClick={() => handleButtonClick("/art")}>
+          Art
+        </Button>
+        <Button variant="ghost" colorScheme="blue" onClick={() => handleButtonClick("/interieur")}>
+          Intérieur
+        </Button>
+        <Button variant="ghost" colorScheme="purple" onClick={() => handleButtonClick("/bijoux")}>
+          Bijoux
+        </Button>
       </Flex>
     </Flex>
   );
