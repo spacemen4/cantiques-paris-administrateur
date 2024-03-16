@@ -7,7 +7,12 @@ const colors = ['red', 'green', 'blue', 'orange', 'purple', 'yellow', 'cyan', 'p
 const Carousel = () => {
   const [offset, setOffset] = useState(0);
 
-  const boxWidth = 600; // The width of each box
+  // New dimensions after reducing by 33%
+  const originalHeight = 300; // Original height before reduction
+  const originalWidth = Math.round(originalHeight * 1.618); // Original width according to the Golden Ratio
+  const reductionFactor = 0.90; // Factor to reduce the dimensions by 33%
+  const boxHeight = Math.round(originalHeight * reductionFactor); // New height
+  const boxWidth = Math.round(originalWidth * reductionFactor); // New width
   const boxMarginX = 16; // Assuming a margin of 2rem (16px per rem) on each side for simplicity
   const totalBoxWidth = boxWidth + 2 * boxMarginX; // Total space occupied by each box including margin
 
@@ -32,7 +37,7 @@ const Carousel = () => {
       />
       <Flex transform={`translateX(${offset}px)`} transition="transform 0.2s ease-in-out">
         {colors.map((color, index) => (
-          <Box key={index} w="600px" h="300px" bg={color} mx="2" />
+          <Box key={index} w={`${boxWidth}px`} h={`${boxHeight}px`} bg={color} mx="2" />
         ))}
       </Flex>
       <IconButton
