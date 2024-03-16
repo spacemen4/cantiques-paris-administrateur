@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import ArtChoices from "./components/pages/ArtChoices";
 import IntérieurPage from "./components/pages/IntérieurPage";
 import BijouxPage from "./components/pages/BijouxPage";
-import CollectionCard from "./components/CollectionCard";
+import CollectionCard from "./components/CollectionPreview";
 import ItemForSale from "./components/ItemForSale";
 import FooterComponent from "./components/FooterComponent";
 import FooterBottom from "./components/FooterBottom";

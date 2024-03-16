@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
 import { Box, IconButton, Flex } from '@chakra-ui/react';
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import CollectionCard from './CollectionCard'; // Assuming CollectionCard is in the same directory
+import CollectionPreview from './CollectionPreview'; // Import CollectionPreview component
 
 const CollectionsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const collectionsPerPage = 10;
-  const totalCollections = 30; // Replace with the actual number of collections you have
+  const pages = 3; // Assuming you have 3 pages of collections
 
   const nextCollection = () => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + collectionsPerPage, totalCollections - collectionsPerPage));
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % pages); // Loop back to the first page
   };
 
   return (
-    <Box overflow="hidden">
-      <Flex>
-        {/* Render the collection previews */}
-        <CollectionCard startIndex={currentIndex} />
-        {/* ... add more CollectionCard components as needed */}
+    <Box position="relative" w="full" overflow="hidden">
+      <Flex direction="row" w="full" overflowX="auto">
+        {/* Render the CollectionPreviews off-screen to the right */}
+        <Box transform={`translateX(-${currentIndex * 100}%)`} transition="transform 0.3s ease-in-out">
+          <CollectionPreview /> {/* Render the first page of collections */}
+          <CollectionPreview /> {/* Render the second page of collections */}
+          <CollectionPreview /> {/* Render the third page of collections */}
+          {/* Add more <CollectionPreview /> as needed */}
+        </Box>
       </Flex>
       <IconButton
         aria-label="Next Collections"
         icon={<ChevronRightIcon />}
         onClick={nextCollection}
-        isDisabled={currentIndex >= totalCollections - collectionsPerPage}
         position="absolute"
         right="0"
         top="50%"
