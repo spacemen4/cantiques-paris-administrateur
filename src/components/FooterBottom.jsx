@@ -7,13 +7,13 @@ import { FaFacebook, FaInstagram } from 'react-icons/fa';
 // Updated Data component
 const footerData = [
   {
-    title: 'À propos de Catawiki',
+    title: 'À propos de Cantiques Paris',
     links: [
-      { name: 'À propos de Catawiki', url: '#' },
+      { name: 'À propos de Cantiques Paris', url: '#' },
       { name: 'Nos experts', url: '#' },
       { name: 'Offres d\'emploi', url: '#' },
       { name: 'Presse', url: '#' },
-      { name: 'Partenariat avec Catawiki', url: '#' },
+      { name: 'Partenariat avec Cantiques Paris', url: '#' },
       { name: 'Portail du collectionneur', url: '#' },
     ],
   },
@@ -22,7 +22,7 @@ const footerData = [
     links: [
       { name: 'Comment acheter ?', url: '#' },
       { name: 'Protection des acheteurs', url: '#' },
-      { name: 'Catawiki Stories', url: '#' },
+      { name: 'Cantiques Paris Stories', url: '#' },
       { name: 'Conditions pour les acheteurs', url: '#' },
     ],
   },
@@ -37,7 +37,7 @@ const footerData = [
     ],
   },
   {
-    title: 'Mon Catawiki',
+    title: 'Mon Cantiques Paris',
     links: [
       { name: 'Connectez-vous', url: '#' },
       { name: 'Inscrivez-vous', url: '#' },
