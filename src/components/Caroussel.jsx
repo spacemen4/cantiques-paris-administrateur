@@ -35,13 +35,7 @@ const Carousel = () => {
 
   return (
     <Flex direction="column" align="center" justify="center" w="full" overflow="hidden" position="relative">
-      <Flex w="full" justify="space-between" px="4" mb="2">
-        {data.map((item, index) => (
-          <Text key={index} fontWeight="bold" color="gray.700">
-            {item.category.toUpperCase()}
-          </Text>
-        ))}
-      </Flex>
+
       <Flex align="center" justify="center" w="full" overflow="hidden" position="relative">
         <IconButton
           aria-label="Previous"
