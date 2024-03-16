@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Flex, IconButton, Badge } from '@chakra-ui/react';
+import { Box, Flex, IconButton, Badge, Text } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
 const data = [
@@ -12,7 +12,7 @@ const data = [
   { category: 'INTÉRIEURS • DESIGN • ART', description: 'Collection Salon contemporain', count: 335 }
 ];
 
-const carouselColors = ['#FF9999', '#99FF99', '#9999FF', '#FFFF99', '#FF99FF', '#99FFFF', '#FFCC99'];
+const carouselColors = ['#E2E8F0', '#CBD5E0', '#A0AEC0', '#718096', '#4A5568', '#2D3748', '#1A202C'];
 
 const Carousel = () => {
   const [offset, setOffset] = useState(0);
@@ -34,47 +34,59 @@ const Carousel = () => {
   };
 
   return (
-    <Flex align="center" justify="center" w="full" overflow="hidden" position="relative">
-      <IconButton
-        aria-label="Previous"
-        icon={<ChevronLeftIcon />}
-        onClick={handlePrev}
-        position="absolute"
-        left={0}
-        zIndex={2}
-      />
-      <Flex transform={`translateX(${offset}px)`} transition="transform 0.2s ease-in-out">
+    <Flex direction="column" align="center" justify="center" w="full" overflow="hidden" position="relative">
+      <Flex w="full" justify="space-between" px="4" mb="2">
         {data.map((item, index) => (
-          <Box key={index} w={`${boxWidth}px`} h={`${boxHeight}px`} bg={carouselColors[index % carouselColors.length]} mx="2" position="relative">
-            <Badge
-              borderRadius="full"
-              px="2"
-              colorScheme="teal"
-              position="absolute"
-              top="0"
-              right="0"
-              mt="2"
-              mr="2"
-            >
-              {item.count}
-            </Badge>
-            <Box position="absolute" bottom="8" left="4" color="white" fontWeight="bold">
-              {item.category}
-            </Box>
-            <Box position="absolute" bottom="8" right="4" color="white" fontWeight="bold">
-              {item.description}
-            </Box>
-          </Box>
+          <Text key={index} fontWeight="bold" color="gray.700">
+            {item.category.toUpperCase()}
+          </Text>
         ))}
       </Flex>
-      <IconButton
-        aria-label="Next"
-        icon={<ChevronRightIcon />}
-        onClick={handleNext}
-        position="absolute"
-        right={0}
-        zIndex={2}
-      />
+      <Flex align="center" justify="center" w="full" overflow="hidden" position="relative">
+        <IconButton
+          aria-label="Previous"
+          icon={<ChevronLeftIcon />}
+          onClick={handlePrev}
+          position="absolute"
+          left={0}
+          zIndex={2}
+        />
+        <Flex transform={`translateX(${offset}px)`} transition="transform 0.2s ease-in-out">
+          {data.map((item, index) => (
+            <Box key={index} w={`${boxWidth}px`} h={`${boxHeight}px`} bg={carouselColors[index % carouselColors.length]} mx="2" p="4" position="relative">
+              <Badge
+                variant="solid"
+                colorScheme="teal"
+                position="absolute"
+                top="0"
+                right="0"
+                mt="2"
+                mr="2"
+              >
+                +{item.count}
+              </Badge>
+              <Box position="absolute" bottom="4" left="4" color="white" fontWeight="bold" fontSize="lg">
+                {item.description}
+              </Box>
+            </Box>
+          ))}
+        </Flex>
+        <IconButton
+          aria-label="Next"
+          icon={<ChevronRightIcon />}
+          onClick={handleNext}
+          position="absolute"
+          right={0}
+          zIndex={2}
+        />
+      </Flex>
+      <Flex w="full" justify="space-between" px="4" mt="2">
+        {data.map((item, index) => (
+          <Text key={index} fontWeight="bold" color="gray.700">
+            DÉCOUVREZ LES {item.count} OBJETS
+          </Text>
+        ))}
+      </Flex>
     </Flex>
   );
 };
