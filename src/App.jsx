@@ -10,6 +10,7 @@ import CollectionCard from "./components/CollectionCard";
 import ItemForSale from "./components/ItemForSale";
 import HeaderTop from "./components/HeaderTop";
 import FooterComponent from "./components/FooterComponent";
+import FooterBottom from "./components/FooterBottom";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <CollectionCard/>
         <ItemForSale/>
         <FooterComponent/>
+        <FooterBottom/>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/buy" element={<BuyPage />} />
