@@ -10,6 +10,7 @@ import CollectionCard from "./components/CollectionCard";
 import ItemForSale from "./components/ItemForSale";
 import FooterComponent from "./components/FooterComponent";
 import FooterBottom from "./components/FooterBottom";
+import CollectionsCarousel from "./components/CollectionsCarousel";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/bijoux" element={<BijouxPage />} />
         </Routes>
         <CollectionCard />
+        <CollectionsCarousel/>
         <ItemForSale />
         <FooterComponent />
         <FooterBottom />
