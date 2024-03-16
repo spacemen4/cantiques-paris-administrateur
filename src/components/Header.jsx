@@ -1,12 +1,12 @@
 import React from "react";
 import { Flex, Button } from "@chakra-ui/react";
-import { Link, useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
 
 const Header = () => {
-  const history = useHistory();
+  const navigate = useNavigate(); // useNavigate instead of useHistory
 
   const handleButtonClick = (route) => {
-    history.push(route);
+    navigate(route); // use navigate instead of history.push
   };
 
   return (
