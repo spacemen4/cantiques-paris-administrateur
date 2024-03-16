@@ -17,13 +17,24 @@ const CollectionsCarousel = () => {
   return (
     <Box position="relative" w="full" overflow="hidden">
       <Flex direction="row" w="full">
-        {/* Use a single Box to wrap the CollectionPreviews and set its width to n-times 100%, where n is the total number of pages */}
-        <Box w={`${totalPages * 100}%`} display="flex" flexDirection="row" transform={`translateX(-${currentIndex * 100 / totalPages}%)`} transition="transform 0.3s ease-in-out">
-          {/* Set each CollectionPreview to take up the full width of a single page */}
-          <Box w={collectionPreviewWidth} flexShrink={0}><CollectionPreview /></Box>
-          <Box w={collectionPreviewWidth} flexShrink={0}><CollectionPreview /></Box>
-          <Box w={collectionPreviewWidth} flexShrink={0}><CollectionPreview /></Box>
-          {/* Add more <Box> wrappers as needed for additional CollectionPreviews */}
+        <Box
+          w={`${totalPages * 100}%`}
+          display="flex"
+          flexDirection="row"
+          transform={`translateX(-${currentIndex * 100 / totalPages}%)`}
+          transition="transform 0.3s ease-in-out"
+        >
+          {/* Render CollectionPreview components, ensuring each has a minimum width */}
+          {Array.from({ length: totalPages }, (_, index) => (
+            <Box
+              key={index}
+              w={collectionPreviewWidth}
+              minW={collectionPreviewWidth}
+              flexShrink={0}
+            >
+              <CollectionPreview />
+            </Box>
+          ))}
         </Box>
       </Flex>
       {currentIndex < totalPages - 1 && (
