@@ -11,6 +11,7 @@ import ItemForSale from "./components/ItemForSale";
 import FooterComponent from "./components/FooterComponent";
 import FooterBottom from "./components/FooterBottom";
 import CollectionsCarousel from "./components/CollectionsCarousel";
+import Caroussel from "./components/Caroussel";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         </Routes>
         <CollectionCard />
         <CollectionsCarousel/>
+        <Caroussel/>
         <ItemForSale />
         <FooterComponent />
         <FooterBottom />
