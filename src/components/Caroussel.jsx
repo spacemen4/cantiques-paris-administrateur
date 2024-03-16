@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
-import { Box, Flex, IconButton, Badge, Text } from '@chakra-ui/react';
+import { Box, Flex, IconButton, Image, Badge, Text } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
+
+const imageData = [
+  'public/images/collections/collection1.jpg',
+  'public/images/collections/collection2.jpg',
+  'public/images/collections/collection3.jpg',
+  'public/images/collections/collection4.jpg',
+  'public/images/collections/collection5.jpg',
+  'public/images/collections/collection6.jpg',
+  'public/images/collections/collection7.jpg',
+];
+
 
 const data = [
   { category: 'DESIGN · VINTAGE', description: 'Design et vintage · Sans prix de réserve', count: 2819 },
@@ -35,7 +46,6 @@ const Carousel = () => {
 
   return (
     <Flex direction="column" align="center" justify="center" w="full" overflow="hidden" position="relative">
-
       <Flex align="center" justify="center" w="full" overflow="hidden" position="relative">
         <IconButton
           aria-label="Previous"
@@ -47,7 +57,8 @@ const Carousel = () => {
         />
         <Flex transform={`translateX(${offset}px)`} transition="transform 0.2s ease-in-out">
           {data.map((item, index) => (
-            <Box key={index} w={`${boxWidth}px`} h={`${boxHeight}px`} bg={carouselColors[index % carouselColors.length]} mx="2" p="4" position="relative">
+            <Box key={index} w={`${boxWidth}px`} h={`${boxHeight}px`} mx="2" p="4" position="relative" overflow="hidden">
+              <Image src={imageData[index]} alt={item.description} boxSize="100%" objectFit="cover" />
               <Badge
                 variant="solid"
                 colorScheme="teal"
@@ -59,9 +70,9 @@ const Carousel = () => {
               >
                 +{item.count}
               </Badge>
-              <Box position="absolute" bottom="4" left="4" color="white" fontWeight="bold" fontSize="lg">
+              <Text position="absolute" bottom="4" left="4" color="white" fontWeight="bold" fontSize="lg">
                 {item.description}
-              </Box>
+              </Text>
             </Box>
           ))}
         </Flex>
