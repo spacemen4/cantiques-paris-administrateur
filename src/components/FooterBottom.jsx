@@ -1,18 +1,49 @@
 import React from 'react';
-import { Box, SimpleGrid, List, ListItem, Link, Select, Stack, Container, Flex, Spacer, Icon } from '@chakra-ui/react';
+import {
+  Box, SimpleGrid, List, ListItem, Link, Select, Stack, Container, Flex, Spacer, Icon,
+} from '@chakra-ui/react';
 import { FaFacebook, FaInstagram } from 'react-icons/fa';
 
-// Data component
+// Updated Data component
 const footerData = [
   {
-    title: 'À propos de Cantiques Paris',
+    title: 'À propos de Catawiki',
     links: [
-      { name: 'À propos de Cantiques Paris', url: '#' },
+      { name: 'À propos de Catawiki', url: '#' },
       { name: 'Nos experts', url: '#' },
-      // ... add other links here
+      { name: 'Offres d\'emploi', url: '#' },
+      { name: 'Presse', url: '#' },
+      { name: 'Partenariat avec Catawiki', url: '#' },
+      { name: 'Portail du collectionneur', url: '#' },
     ],
   },
-  // ... add other columns here
+  {
+    title: 'Acheter',
+    links: [
+      { name: 'Comment acheter ?', url: '#' },
+      { name: 'Protection des acheteurs', url: '#' },
+      { name: 'Catawiki Stories', url: '#' },
+      { name: 'Conditions pour les acheteurs', url: '#' },
+    ],
+  },
+  {
+    title: 'Vendre',
+    links: [
+      { name: 'Comment vendre ?', url: '#' },
+      { name: 'Conseils pour les vendeurs', url: '#' },
+      { name: 'Consignes pour la soumission de lots', url: '#' },
+      { name: 'Conditions pour les vendeurs', url: '#' },
+      { name: 'Partenaires', url: '#' },
+    ],
+  },
+  {
+    title: 'Mon Catawiki',
+    links: [
+      { name: 'Connectez-vous', url: '#' },
+      { name: 'Inscrivez-vous', url: '#' },
+      { name: 'Centre d\'aide', url: '#' },
+    ],
+  },
 ];
 
 // FooterItem component for each column
