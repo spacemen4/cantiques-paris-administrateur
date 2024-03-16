@@ -19,7 +19,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/art" element={<ArtChoices />} />
-          <Route path="/intérieur" element={<IntérieurPage />} /> {/* Route for Intérieur page */}
+          <Route path="/interieur" element={<IntérieurPage />} /> {/* Route for Intérieur page */}
           <Route path="/bijoux" element={<BijouxPage />} /> {/* Route for Bijoux page */}
         </Routes>
         <CollectionCard />
