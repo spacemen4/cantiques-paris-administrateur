@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Input, Select, Button, useToast, Flex, FormControl, FormLabel, FormHelperText } from "@chakra-ui/react";
 import { supabase } from "../../../supabase"; // Import the Supabase client instance
 import Header from "./../Header";
+import { v4 as uuidv4 } from 'uuid';
 
 const SubcategoriesPage = () => {
   const [subCategoryName, setSubCategoryName] = useState(""); // State for the new subcategory name
@@ -29,45 +30,54 @@ const SubcategoriesPage = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    try {
-      // Upload the image to the bucket
-      const { data: fileData, error: fileError } = await supabase.storage.from("subcategory-images").upload(subCategoryName, imageFile);
-      if (fileError) {
-        throw fileError;
-      }
-      const imageUrl = fileData.Key; // Get the URL of the uploaded image
+const handleSubmit = async () => {
+  try {
+    // Generate a unique UUID for the image file name
+    const uniqueFileName = `${uuidv4()}-${imageFile.name}`;
+    // Upload the image to the bucket with the unique file name
+    const { data: fileData, error: fileError } = await supabase.storage.from("subcategory-images").upload(`images/${uniqueFileName}`, imageFile);
 
-      // Send a POST request to create a new subcategory in the 'subcategories' table
-      const { data, error } = await supabase
-        .from("subcategories")
-        .insert({ name: subCategoryName, category_id: selectedCategory, image_url: imageUrl });
-      if (error) {
-        throw error;
-      }
-      // Display a success message
-      toast({
-        title: "Subcategory created",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-      // Clear the input fields
-      setSubCategoryName("");
-      setSelectedCategory("");
-      setImageFile(null);
-    } catch (error) {
-      // Display an error message if the request fails
-      console.error("Error creating subcategory:", error.message);
-      toast({
-        title: "Error",
-        description: "Failed to create subcategory",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+    if (fileError) {
+      throw fileError;
     }
-  };
+
+    // Construct the URL of the uploaded image
+    // Note: You might need to adjust the URL pattern based on your Supabase setup
+    const imageUrl = `${process.env.REACT_APP_SUPABASE_URL}/storage/v1/object/public/subcategory-images/images/${uniqueFileName}`;
+
+    // Send a POST request to create a new subcategory in the 'subcategories' table with the image URL
+    const { data, error } = await supabase
+      .from("subcategories")
+      .insert({ name: subCategoryName, category_id: selectedCategory, image_url: imageUrl });
+
+    if (error) {
+      throw error;
+    }
+
+    // Display a success message
+    toast({
+      title: "Subcategory created",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+
+    // Clear the input fields
+    setSubCategoryName("");
+    setSelectedCategory("");
+    setImageFile(null);
+  } catch (error) {
+    // Display an error message if the request fails
+    console.error("Error creating subcategory:", error.message);
+    toast({
+      title: "Error",
+      description: "Failed to create subcategory",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
+};
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
