@@ -2,37 +2,28 @@ import React from 'react';
 import { Box, Heading, Image, Text, Link, Button, Grid, GridItem, Badge, Flex } from '@chakra-ui/react';
 
 const CollectionCardPopulaire = ({ title, images, date, itemCount, itemLink }) => {
-  const gridTemplateRows = "repeat(2, auto)";
-  const gridTemplateColumns = "repeat(5, 1fr)";
-
-  const getColumnSpan = (index) => {
-    if (index === 0 || index === 4) return 2;
-    return 1;
-  };
-
-  const getRowSpan = (index) => {
-    if (index === 0) return 2;
-    return 1;
-  };
-  const imageBackground = "blue.50";
+  const gridTemplateRows = "1fr repeat(2, 1fr)";
+  const gridTemplateColumns = "1fr 1fr";
 
   return (
     <Box borderRadius="lg" overflow="hidden">
-      <Box bg={imageBackground}>
+      <Box position="relative">
         <Grid templateRows={gridTemplateRows} templateColumns={gridTemplateColumns} gap={2}>
-          {images.map((image, index) => (
-            <GridItem key={index} colSpan={getColumnSpan(index)} rowSpan={getRowSpan(index)} position="relative">
+          <GridItem colSpan={1} rowSpan={3} position="relative">
+            <Image src={images[0].src} alt={images[0].alt} objectFit="cover" width="100%" height="100%" />
+          </GridItem>
+          {images.slice(1, 4).map((image, index) => (
+            <GridItem key={index + 1} colSpan={1} rowSpan={1} position="relative">
               <Image src={image.src} alt={image.alt} objectFit="cover" width="100%" height="100%" />
               {image.counter && (
                 <Badge
                   position="absolute"
-                  bottom="50px"
-                  right={index === 4 ? "-100px" : "0"} 
-                  m={2}
+                  bottom="10px"
+                  right="10px"
                   bg="red.500"
                   color="white"
                   borderRadius="full"
-                  px={3}
+                  px={2}
                   py={1}
                 >
                   +{image.counter}
