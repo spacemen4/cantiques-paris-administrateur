@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Navigate } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import { HashRouter, Route, Routes } from "react-router-dom";
@@ -9,7 +10,7 @@ import ItemsPage from "./components/pages/ItemsPage";
 import { Auth } from '@supabase/auth-ui-react';
 import { supabase } from "./../supabase"; // Adjust the path as needed
 
-const AdminLayoutWithAuth = () => {
+const App = () => {
   const [session, setSession] = useState(null);
 
   useEffect(() => {
@@ -124,23 +125,17 @@ const AdminLayoutWithAuth = () => {
     );
   }
 
-  return <AdminLayout />;
-};
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(
-  <ChakraProvider theme={theme}>
-    <React.StrictMode>
-      <ThemeEditorProvider>
-        <HashRouter>
-          <Routes>
+  return (
+    <ChakraProvider>
+      <Router>
+        <Routes>
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/subcategories" element={<SubcategoriesPage />} />
           <Route path="/items" element={<ItemsPage />} />
-          </Routes>
-        </HashRouter>
-      </ThemeEditorProvider>
-    </React.StrictMode>
-  </ChakraProvider>
-);
+        </Routes>
+      </Router>
+    </ChakraProvider>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById("root"));
