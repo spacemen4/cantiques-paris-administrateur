@@ -45,7 +45,16 @@ const Carousel = () => {
   };
 
   return (
-    <Flex direction="column" align="center" justify="center" w="full" overflow="hidden" position="relative">
+    <Flex
+      direction="column"
+      align="center"
+      justify="center"
+      w="full"
+      bg="white" // Set the background to white
+      overflow="hidden"
+      position="relative"
+      p={4} // Add some padding around the carousel
+    >
       <Flex align="center" justify="center" w="full" overflow="hidden" position="relative">
         <IconButton
           aria-label="Previous"
@@ -54,25 +63,47 @@ const Carousel = () => {
           position="absolute"
           left={0}
           zIndex={2}
+          backgroundColor="transparent" // Ensure the button has a transparent background
         />
         <Flex transform={`translateX(${offset}px)`} transition="transform 0.2s ease-in-out">
           {data.map((item, index) => (
-            <Box key={index} w={`${boxWidth}px`} h={`${boxHeight}px`} mx="2" p="4" position="relative" overflow="hidden">
+            <Box
+              key={index}
+              w={`${boxWidth}px`}
+              h={`${boxHeight}px`}
+              mx={2}
+              p={4}
+              position="relative"
+              overflow="hidden"
+              bg="white" // Set each box background to white
+              boxShadow="md" // Optional: add a shadow for better visibility
+            >
               <Image src={imageData[index]} alt={item.description} boxSize="100%" objectFit="cover" />
               <Badge
                 variant="solid"
                 colorScheme="teal"
                 position="absolute"
-                top="0"
-                right="0"
-                mt="2"
-                mr="2"
+                bottom="4"
+                right="4"
+                borderRadius="full" // Makes the badge circular or rounded
               >
-                +{item.count}
+                {new Date().toLocaleDateString('fr-FR')} // This will display the date in a French format
               </Badge>
               <Text position="absolute" bottom="4" left="4" color="white" fontWeight="bold" fontSize="lg">
                 {item.description}
               </Text>
+              <Badge
+                variant="subtle"
+                colorScheme="gray"
+                position="absolute"
+                top="0"
+                left="0"
+                mt="2"
+                ml="2"
+                borderRadius="full"
+              >
+                Découvrez les {item.count} objets
+              </Badge>
             </Box>
           ))}
         </Flex>
@@ -83,6 +114,7 @@ const Carousel = () => {
           position="absolute"
           right={0}
           zIndex={2}
+          backgroundColor="transparent"
         />
       </Flex>
     </Flex>
