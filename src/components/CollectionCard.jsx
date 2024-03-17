@@ -19,7 +19,7 @@ const CollectionCard = ({ title, images, date, itemCount, itemLink }) => {
   const imageBackground = "blue.50";
 
   return (
-    <Box  borderRadius="lg" overflow="hidden">
+    <Box borderRadius="lg" overflow="hidden">
       <Box bg={imageBackground}> {/* Apply the background color here */}
         <Grid templateRows={gridTemplateRows} templateColumns={gridTemplateColumns} gap={2}>
           {images.map((image, index) => (
@@ -28,8 +28,8 @@ const CollectionCard = ({ title, images, date, itemCount, itemLink }) => {
               {image.counter && (
                 <Badge
                   position="absolute"
-                  bottom="0"
-                  right="0"
+                  bottom="50px"
+                  right={index === 4 ? "-100px" : "0"} 
                   m={2}
                   bg="red.500"
                   color="white"
