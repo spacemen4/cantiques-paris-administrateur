@@ -1,3 +1,4 @@
+// CategoriesPage.js
 import React, { useState, useEffect } from "react";
 import { Box, Input, Button, useToast, Flex, Select, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 import { supabase } from "../../../supabase"; // Import the Supabase client instance
@@ -32,7 +33,8 @@ const CategoriesPage = () => {
     const handleSubmit = async () => {
         try {
             // Send a POST request to create a new category in the 'categories' table
-            const { data, error } = await supabase.from("categories").insert({ name: categoryName, color: categoryColor });
+            const path = categoryName.toLowerCase(); // Calculate the lowercase path
+            const { data, error } = await supabase.from("categories").insert({ name: categoryName, color: categoryColor, path });
             if (error) {
                 throw error;
             }
