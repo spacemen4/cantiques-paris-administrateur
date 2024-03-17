@@ -136,8 +136,4 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
-
-};
-
 export default App; // Make sure to export the App component
