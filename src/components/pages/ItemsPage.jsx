@@ -78,25 +78,27 @@ const ItemsPage = () => {
   };
 
   const uploadImage = async () => {
-    const fileExtension = imageFile.name.split('.').pop();
-    const uniqueFileName = `${uuidv4()}.${fileExtension}`;
-    const { data: fileData, error: fileError } = await supabase.storage.from("items-images").upload(`images/${uniqueFileName}`, imageFile);
-
+    const uniqueFileName = `${uuidv4()}`;
+    const { data: fileData, error: fileError } = await supabase.storage
+      .from("items-images")
+      .upload(`images/${uniqueFileName}`, imageFile);
+  
     if (fileError) {
       throw fileError;
     }
-
+  
     // Construct the URL directly
     const imageUrl = `https://tzfuvfxjjcywdrgivqzq.supabase.co/storage/v1/object/public/items-images/images/${uniqueFileName}`;
-    setImageUrl(imageUrl);
+    setImageUrl(imageUrl); // Set the imageUrl state here
     return imageUrl;
   };
+  
 
   const handleSubmit = async () => {
     try {
       const uploadedImageUrl = await uploadImage();
       // After successful image upload, continue with item creation
-      createItem(uploadedImageUrl);
+      createItem(uploadedImageUrl); // Pass uploadedImageUrl to createItem
     } catch (error) {
       console.error("Error uploading image:", error.message);
       toast({
@@ -108,6 +110,7 @@ const ItemsPage = () => {
       });
     }
   };
+  
 
   const createItem = async (uploadedImageUrl) => {
     try {
