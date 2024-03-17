@@ -11,6 +11,7 @@ import FooterComponent from "./components/FooterComponent";
 import FooterBottom from "./components/FooterBottom";
 import CollectionPreview from "./components/CollectionPreview";
 import CollectionPreviewStyled from "./components/CollectionPreviewStyled";
+import CollectionPreviewStyledPopulaire from "./components/CollectionPreviewStyledPopulaire";
 
 const App = () => {
   return (
@@ -26,7 +27,10 @@ const App = () => {
         </Routes>
         <Heading>Collections populaires</Heading>
         <CollectionPreview/>
+        <Heading>Ventes populaires</Heading>
         <CollectionPreviewStyled/>
+        <Heading>Ventes populaires</Heading>
+        <CollectionPreviewStyledPopulaire/>
         <ItemForSale />
         <FooterComponent />
         <FooterBottom />
