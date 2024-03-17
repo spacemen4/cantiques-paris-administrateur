@@ -1,11 +1,12 @@
 // SubcategoriesPage.js
 import React, { useState, useEffect } from "react";
-import { Box, Input, Select, Button, useToast } from "@chakra-ui/react";
+import { Box, Input, Select, Button, useToast, Flex, FormControl, FormLabel, FormHelperText } from "@chakra-ui/react";
 import { supabase } from "../../../supabase"; // Import the Supabase client instance
 
 const SubcategoriesPage = () => {
   const [subCategoryName, setSubCategoryName] = useState(""); // State for the new subcategory name
   const [selectedCategory, setSelectedCategory] = useState(""); // State for the selected category
+  const [imageFile, setImageFile] = useState(null); // State for storing the selected image file
   const [categories, setCategories] = useState([]); // State for storing categories
   const toast = useToast(); // Toast for displaying success or error messages
 
@@ -29,10 +30,17 @@ const SubcategoriesPage = () => {
 
   const handleSubmit = async () => {
     try {
+      // Upload the image to the bucket
+      const { data: fileData, error: fileError } = await supabase.storage.from("subcategories").upload(subCategoryName, imageFile);
+      if (fileError) {
+        throw fileError;
+      }
+      const imageUrl = fileData.Key; // Get the URL of the uploaded image
+
       // Send a POST request to create a new subcategory in the 'subcategories' table
       const { data, error } = await supabase
         .from("subcategories")
-        .insert({ name: subCategoryName, category_id: selectedCategory });
+        .insert({ name: subCategoryName, category_id: selectedCategory, image_url: imageUrl });
       if (error) {
         throw error;
       }
@@ -43,8 +51,10 @@ const SubcategoriesPage = () => {
         duration: 3000,
         isClosable: true,
       });
-      // Clear the input field
+      // Clear the input fields
       setSubCategoryName("");
+      setSelectedCategory("");
+      setImageFile(null);
     } catch (error) {
       // Display an error message if the request fails
       console.error("Error creating subcategory:", error.message);
@@ -56,6 +66,11 @@ const SubcategoriesPage = () => {
         isClosable: true,
       });
     }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
   };
 
   return (
@@ -78,6 +93,11 @@ const SubcategoriesPage = () => {
           </option>
         ))}
       </Select>
+      <FormControl mb={4}>
+        <FormLabel>Upload Image</FormLabel>
+        <Input type="file" onChange={handleFileChange} />
+        <FormHelperText>Upload an image for the subcategory.</FormHelperText>
+      </FormControl>
       <Button colorScheme="blue" onClick={handleSubmit}>Create Subcategory</Button>
     </Box>
   );
