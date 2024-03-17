@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
-import { HashRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import CategoriesPage from "./components/pages/CategoriesPage";
 import SubcategoriesPage from "./components/pages/SubcategoriesPage";
@@ -139,3 +137,7 @@ const App = () => {
 };
 
 ReactDOM.render(<App />, document.getElementById("root"));
+
+};
+
+export default App; // Make sure to export the App component
