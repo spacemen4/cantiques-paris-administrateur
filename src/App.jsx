@@ -6,13 +6,10 @@ import Header from "./components/Header";
 import ArtChoices from "./components/pages/ArtChoices";
 import IntérieurPage from "./components/pages/IntérieurPage";
 import BijouxPage from "./components/pages/BijouxPage";
-import CarousselVentePopulaire from "./components/CarousselVentePopulaire";
 import ItemForSale from "./components/ItemForSale";
 import FooterComponent from "./components/FooterComponent";
 import FooterBottom from "./components/FooterBottom";
-import Caroussel from "./components/Caroussel";
-import HorizontalCarousel from "./components/HorizontalCaroussel";
-import HorizontalCarouselBis from "./components/HorizontalCarousselBis";
+import CollectionPreview from "./components/CollectionPreview";
 
 const App = () => {
   return (
@@ -27,11 +24,7 @@ const App = () => {
           <Route path="/bijoux" element={<BijouxPage />} />
         </Routes>
         <Heading>Collections populaires</Heading>
-        <Caroussel/>
-        <Heading>Ventes populaires</Heading>
-        <CarousselVentePopulaire/>
-        <HorizontalCarousel/>
-        <HorizontalCarouselBis/>
+        <CollectionPreview/>
         <ItemForSale />
         <FooterComponent />
         <FooterBottom />

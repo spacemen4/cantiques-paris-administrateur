@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, IconButton, Flex } from '@chakra-ui/react';
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import CollectionPreview from './CollectionPreview'; // Import CollectionPreview component
+import CollectionPreview from '../CollectionPreview'; // Import CollectionPreview component
 
 const CollectionsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
