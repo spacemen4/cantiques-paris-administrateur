@@ -15,10 +15,37 @@ const SubcategoriesPage = () => {
   const [imageUrl, setImageUrl] = useState("");
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [subcategories, setSubcategories] = useState([]);
 
   useEffect(() => {
     fetchCategories();
+    fetchSubcategories();
   }, []);
+  
+  const fetchSubcategories = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('subcategories')
+        .select('name, image_url, category_id, categories (name)')
+        .order('created_at', { ascending: false });
+  
+      if (error) {
+        throw error;
+      }
+  
+      setSubcategories(data);
+    } catch (error) {
+      console.error('Error fetching subcategories:', error.message);
+      toast({
+        title: "Error",
+        description: "Failed to fetch subcategories",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+  
 
   const fetchCategories = async () => {
     try {
@@ -113,8 +140,8 @@ const SubcategoriesPage = () => {
   return (
     <>
       <Header />
-      <Box>
-      <Input
+            <Box>
+        <Input
         placeholder="Enter subcategory name"
         value={subCategoryName}
         onChange={(e) => setSubCategoryName(e.target.value)}
@@ -129,35 +156,37 @@ const SubcategoriesPage = () => {
         {categories.map((category) => (
           <option key={category.id} value={category.id}>
             {category.name}
-          </option>
+                </option>
         ))}
       </Select>
       <FormControl mb={4}>
         <FormLabel>Upload Image</FormLabel>
         <Input type="file" onChange={handleFileChange} />
         <FormHelperText>Upload an image for the subcategory.</FormHelperText>
-      </FormControl>
-        <Button colorScheme="blue" onClick={handleSubmit}>Upload Image</Button>
+              </FormControl>
+            <Button colorScheme="blue" onClick={handleSubmit}>Upload Image</Button>
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Image Uploaded Successfully</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <p>The image has been uploaded successfully. Here is the URL:</p>
-            <Input value={imageUrl} isReadOnly />
-          </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={finalizeCreation}>
-              Create Subcategory
-            </Button>
-            <Button variant="ghost" onClick={onClose}>Cancel</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <Box mt={10}>
+      {subcategories.map((subcat) => (
+        <Box key={subcat.id} p={5} shadow="md" borderWidth="1px" mb={4}>
+          <Box display="flex" alignItems="center">
+            <Box flexShrink={0}>
+              <img src={subcat.image_url} alt={`Image for ${subcat.name}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+            </Box>
+            <Box ml={4}>
+              <Box fontWeight="bold" letterSpacing="wide" fontSize="xl" textTransform="uppercase">
+                {subcat.name}
+              </Box>
+              <Box>Category: {subcat.categories.name}</Box>
+              <Box>Category ID: {subcat.category_id}</Box>
+            </Box>
+          </Box>
+        </Box>
+      ))}
+    </Box>
+
     </>
   );
 };
-
+  
 export default SubcategoriesPage;
