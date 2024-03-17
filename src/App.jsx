@@ -1,10 +1,11 @@
+// App.js
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"; // Import Navigate for redirection
-import { ChakraProvider} from "@chakra-ui/react";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
 import Header from "./components/Header";
-import ArtChoices from "./components/pages/ArtChoices";
-import IntérieurPage from "./components/pages/IntérieurPage";
-import BijouxPage from "./components/pages/BijouxPage";
+import CategoriesPage from "./components/pages/CategoriesPage";
+import SubcategoriesPage from "./components/pages/SubcategoriesPage";
+import ItemsPage from "./components/pages/ItemsPage";
 
 const App = () => {
   return (
@@ -12,10 +13,10 @@ const App = () => {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" element={<Navigate to="/art" />} /> {/* Redirect root to /art */}
-          <Route path="/art" element={<ArtChoices />} />
-          <Route path="/interieur" element={<IntérieurPage />} />
-          <Route path="/bijoux" element={<BijouxPage />} />
+          <Route path="/" element={<Navigate to="/categories" />} />
+          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/subcategories" element={<SubcategoriesPage />} />
+          <Route path="/items" element={<ItemsPage />} />
         </Routes>
       </Router>
     </ChakraProvider>
