@@ -1,14 +1,16 @@
-// ItemsPage.js
 import React, { useState, useEffect } from "react";
-import { Box, Input, Textarea, Select, Button, useToast } from "@chakra-ui/react";
-import { supabase } from "../../../supabase"; // Import the Supabase client instance
-import Header from "./../Header";
+import {
+  Box, Input, Select, Button, useToast, FormControl, FormLabel, FormHelperText,
+} from "@chakra-ui/react";
+import { supabase } from "../../../supabase";
+import Header from "../Header";
+import { v4 as uuidv4 } from 'uuid';
 
 const ItemsPage = () => {
   const [title, setTitle] = useState("");
   const [lotNumber, setLotNumber] = useState("");
   const [closingTime, setClosingTime] = useState("");
-  const [currentOffer, setCurrentOffer] = useState("");
+const [currentOffer, setCurrentOffer] = useState("");
   const [noReservePrice, setNoReservePrice] = useState(false);
   const [estimatedGalleryValue, setEstimatedGalleryValue] = useState("");
   const [selectedBy, setSelectedBy] = useState("");
@@ -32,48 +34,70 @@ const ItemsPage = () => {
   const [legalInformation, setLegalInformation] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
+  const [imageFile, setImageFile] = useState(null); // New state for image file
+  const [imageUrl, setImageUrl] = useState(""); // New state for image URL
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const toast = useToast();
 
   useEffect(() => {
-    fetchCategories(); // Fetch categories when the component mounts
+    fetchCategories();
   }, []);
 
   const fetchCategories = async () => {
     try {
-      // Fetch categories from the 'categories' table
       const { data: categoriesData, error: categoriesError } = await supabase.from("categories").select("*");
       if (categoriesError) {
         throw categoriesError;
       }
-      // Update the state with fetched categories
       setCategories(categoriesData || []);
     } catch (error) {
       console.error("Error fetching categories:", error.message);
     }
   };
 
-  const fetchSubcategories = async (categoryId) => {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
+  };
+
+  const uploadImage = async () => {
     try {
-      // Fetch subcategories for the selected category from the 'subcategories' table
-      const { data: subcategoriesData, error: subcategoriesError } = await supabase
-        .from("subcategories")
-        .select("*")
-        .eq("category_id", categoryId);
-      if (subcategoriesError) {
-        throw subcategoriesError;
+      const fileExtension = imageFile.name.split('.').pop();
+      const uniqueFileName = `${uuidv4()}.${fileExtension}`;
+      const { data: fileData, error: fileError } = await supabase.storage.from("items-images").upload(`images/${uniqueFileName}`, imageFile);
+
+      if (fileError) {
+        throw fileError;
       }
-      // Update the state with fetched subcategories
-      setSubcategories(subcategoriesData || []);
+
+      const imageUrl = `https://tzfuvfxjjcywdrgivqzq.supabase.co/storage/v1/object/public/items-images/images/${uniqueFileName}`;
+      setImageUrl(imageUrl);
+      return imageUrl;
     } catch (error) {
-      console.error("Error fetching subcategories:", error.message);
+      throw error;
     }
   };
 
   const handleSubmit = async () => {
     try {
-      // Send a POST request to create a new item in the 'items' table
+      const uploadedImageUrl = await uploadImage();
+      // After successful image upload, continue with item creation
+      createItem(uploadedImageUrl);
+    } catch (error) {
+      console.error("Error uploading image:", error.message);
+      toast({
+        title: "Error",
+        description: "Failed to upload image",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const createItem = async (uploadedImageUrl) => {
+    try {
       const { data, error } = await supabase.from("items").insert({
         title,
         lot_number: lotNumber,
@@ -100,23 +124,26 @@ const ItemsPage = () => {
         artwork_origin: artworkOrigin,
         artwork_period: artworkPeriod,
         legal_information: legalInformation,
+        image_url: uploadedImageUrl, // Store the uploaded image URL in the database
         category_id: selectedCategory,
         subcategory_id: selectedSubcategory,
       });
+
       if (error) {
         throw error;
       }
-      // Display a success message
+
       toast({
         title: "Item created",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
-      // Clear the input fields
+
+      // Clear form fields and reset image state
       clearFormFields();
+      setImageUrl("");
     } catch (error) {
-      // Display an error message if the request fails
       console.error("Error creating item:", error.message);
       toast({
         title: "Error",
@@ -182,14 +209,14 @@ const ItemsPage = () => {
           mb={4}
         />
         {/* Add other input fields for item details */}
-        
+
         {/* Category and Subcategory selection */}
         <Select
           placeholder="Select Category"
           value={selectedCategory}
           onChange={(e) => {
             setSelectedCategory(e.target.value);
-            fetchSubcategories(e.target.value); // Fetch subcategories when a category is selected
+            fetchSubcategories(e.target.value);
           }}
           mb={4}
         >
@@ -211,13 +238,20 @@ const ItemsPage = () => {
             </option>
           ))}
         </Select>
-  
+
+        {/* File upload */}
+        <FormControl mb={4}>
+          <FormLabel>Upload Image</FormLabel>
+          <Input type="file" onChange={handleFileChange} />
+          <FormHelperText>Upload an image for the item.</FormHelperText>
+        </FormControl>
+
         {/* Button to submit the form */}
         <Button colorScheme="blue" onClick={handleSubmit} mb={4}>
           Create Item
         </Button>
-  
-        {/* Toast for displaying success or error messages */}
+
+{/* Toast for displaying success or error messages */}
         {/* You can implement the toast here */}
   
       </Box>
@@ -226,4 +260,3 @@ const ItemsPage = () => {
 };
 
 export default ItemsPage;
-  
