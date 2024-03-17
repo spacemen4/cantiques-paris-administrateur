@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Alert, AlertIcon } from "@chakra-ui/react";
 import Header from "./components/Header";
 import CategoriesPage from "./components/pages/CategoriesPage";
 import SubcategoriesPage from "./components/pages/SubcategoriesPage";
@@ -9,45 +9,55 @@ import { Auth } from '@supabase/auth-ui-react';
 import { supabase } from "./../supabase"; // Adjust the path as needed
 
 const ProtectedRoute = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log('Supabase auth object:', supabase.auth);
     const session = supabase.auth.session();
-  
-    setLoggedIn(!!session);
-  
+    setUser(session?.user || null);
+    setLoading(false);
+
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setLoggedIn(!!session);
+      setUser(session?.user || null);
     });
-  
+
     return () => {
       authListener.unsubscribe();
     };
   }, []);
-  
 
-  if (!loggedIn) {
-    // User not logged in, redirect to login page
+  if (loading) {
+    return <div>Loading...</div>; // You can show a loading indicator while checking the authentication status
+  }
+
+  if (!user) {
+    console.log('No user, redirecting...');
     return <Navigate to="/" />;
   }
 
-  // User is logged in, allow access to the route
-  return children;
+  console.log('User found, displaying children...');
+  return (
+    <>
+      <Header />
+      <Alert status="success">
+        <AlertIcon />
+        You are logged in!
+      </Alert>
+      {children}
+    </>
+  );
 };
 
 const App = () => {
   return (
     <ChakraProvider>
       <Router>
-      <Header />
         <Routes>
-
           <Route path="/categories" element={<ProtectedRoute><CategoriesPage /></ProtectedRoute>} />
           <Route path="/subcategories" element={<ProtectedRoute><SubcategoriesPage /></ProtectedRoute>} />
           <Route path="/items" element={<ProtectedRoute><ItemsPage /></ProtectedRoute>} />
           <Route path="/" element={<Auth supabaseClient={supabase} />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/categories" />} /> {/* Redirect to categories by default */}
         </Routes>
       </Router>
     </ChakraProvider>
