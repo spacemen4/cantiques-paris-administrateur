@@ -3,9 +3,9 @@ import { Box, Flex, IconButton, Image, Badge, Text } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
 const imageData = [
-  'public/images/collections/collection1.jpg',
-  'public/images/collections/collection2.jpg',
-  'public/images/collections/collection3.jpg',
+  '/images/collections/collection1.jpg',
+  '/images/collections/collection2.jpg',
+  '/images/collections/collection3.jpg',
   'public/images/collections/collection4.jpg',
   'public/images/collections/collection5.jpg',
   'public/images/collections/collection6.jpg',
