@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import { ChakraProvider, Alert, AlertIcon } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import Header from "./components/Header";
 import CategoriesPage from "./components/pages/CategoriesPage";
 import SubcategoriesPage from "./components/pages/SubcategoriesPage";
@@ -49,14 +49,28 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const App = () => {
+  const handleUserSignedIn = () => {
+    // Redirect the user to the protected route after successful login
+    return <Navigate to="/categories" />;
+  };
+
   return (
     <ChakraProvider>
       <Router>
         <Routes>
-          <Route path="/categories" element={<ProtectedRoute><CategoriesPage /></ProtectedRoute>} />
-          <Route path="/subcategories" element={<ProtectedRoute><SubcategoriesPage /></ProtectedRoute>} />
-          <Route path="/items" element={<ProtectedRoute><ItemsPage /></ProtectedRoute>} />
-          <Route path="/" element={<Auth supabaseClient={supabase} />} />
+          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/subcategories" element={<SubcategoriesPage />} />
+          <Route path="/items" element={<ItemsPage />} />
+          <Route
+            path="/"
+            element={
+              <Auth
+                supabaseClient={supabase}
+                onUserSignedIn={handleUserSignedIn} // Handle redirection after successful login
+                redirectTo="/categories" // Redirect to categories page after login if no path is specified
+              />
+            }
+          />
           <Route path="*" element={<Navigate to="/categories" />} /> {/* Redirect to categories by default */}
         </Routes>
       </Router>
