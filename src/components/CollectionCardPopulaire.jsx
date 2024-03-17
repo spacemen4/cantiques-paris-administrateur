@@ -2,25 +2,23 @@ import React from 'react';
 import { Box, Heading, Image, Text, Link, Button, Grid, GridItem, Badge, Flex } from '@chakra-ui/react';
 
 const CollectionCardPopulaire = ({ title, images, date, itemCount, itemLink }) => {
-  const gridTemplateRows = "repeat(2, auto)"; // This will allow for two rows with automatic height
-  const gridTemplateColumns = "repeat(5, 1fr)"; // Assume there will be five columns in total
+  const gridTemplateRows = "repeat(2, auto)";
+  const gridTemplateColumns = "repeat(5, 1fr)";
 
-  // Function to determine column span based on the image's position
   const getColumnSpan = (index) => {
-    if (index === 0 || index === 4) return 2; // First and last image span two columns
-    return 1; // Other images span one column
+    if (index === 0 || index === 4) return 2;
+    return 1;
   };
 
-  // Function to determine row span based on the image's position
   const getRowSpan = (index) => {
-    if (index === 0) return 2; // First image spans two rows
-    return 1; // Other images span one row
+    if (index === 0) return 2;
+    return 1;
   };
   const imageBackground = "blue.50";
 
   return (
     <Box borderRadius="lg" overflow="hidden">
-      <Box bg={imageBackground}> {/* Apply the background color here */}
+      <Box bg={imageBackground}>
         <Grid templateRows={gridTemplateRows} templateColumns={gridTemplateColumns} gap={2}>
           {images.map((image, index) => (
             <GridItem key={index} colSpan={getColumnSpan(index)} rowSpan={getRowSpan(index)} position="relative">
