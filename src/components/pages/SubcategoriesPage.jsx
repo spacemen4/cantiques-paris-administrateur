@@ -6,6 +6,7 @@ import {
 import { supabase } from "../../../supabase";
 import Header from "../Header";
 import { v4 as uuidv4 } from 'uuid';
+import { MdDeleteForever } from "react-icons/md"; // Add this import
 
 const SubcategoriesPage = () => {
   const [subCategoryName, setSubCategoryName] = useState("");
@@ -26,7 +27,7 @@ const SubcategoriesPage = () => {
     try {
       const { data, error } = await supabase
         .from('subcategories')
-        .select('name, image_url, category_id, categories (name)')
+        .select('id, name, image_url, category_id, categories (name)')
         .order('created_at', { ascending: false });
           
       if (error) {
@@ -138,6 +139,32 @@ const SubcategoriesPage = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      const { error } = await supabase.from("subcategories").delete().eq('id', id);
+      if (error) {
+        throw error;
+      }
+      // Remove the deleted subcategory from the state
+      setSubcategories(subcategories.filter(subcat => subcat.id !== id));
+      toast({
+        title: "Subcategory deleted",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error("Error deleting subcategory:", error.message);
+      toast({
+        title: "Error",
+        description: "Failed to delete subcategory",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
   return (
     <>
       <Header />
@@ -181,6 +208,9 @@ const SubcategoriesPage = () => {
                 <Box>Category: {subcat.categories.name}</Box>
                 <Box>Category ID: {subcat.category_id}</Box>
               </Box>
+              <Button ml={4} colorScheme="red" onClick={() => handleDelete(subcat.id)}>
+                <MdDeleteForever />
+              </Button>
             </Box>
           </Box>
         ))}
