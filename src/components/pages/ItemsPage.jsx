@@ -98,11 +98,12 @@ const [currentOffer, setCurrentOffer] = useState("");
 
   const createItem = async (uploadedImageUrl) => {
     try {
+      const currentOfferValue = currentOffer ? parseInt(currentOffer) : null; // Convert currentOffer to integer or null if it's empty
       const { data, error } = await supabase.from("items").insert({
         title,
         lot_number: lotNumber,
         closing_time: closingTime,
-        current_offer: currentOffer,
+        current_offer: currentOfferValue, // Use the converted value
         no_reserve_price: noReservePrice,
         estimated_gallery_value: estimatedGalleryValue,
         selected_by: selectedBy,
@@ -128,11 +129,11 @@ const [currentOffer, setCurrentOffer] = useState("");
         category_id: selectedCategory,
         subcategory_id: selectedSubcategory,
       });
-
+  
       if (error) {
         throw error;
       }
-
+  
       toast({
         title: "Item created",
         status: "success",
@@ -154,7 +155,7 @@ const [currentOffer, setCurrentOffer] = useState("");
       });
     }
   };
-
+  
   const clearFormFields = () => {
     setTitle("");
     setLotNumber("");
