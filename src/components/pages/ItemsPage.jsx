@@ -21,7 +21,6 @@ const ItemsPage = () => {
   const [sellerName, setSellerName] = useState("");
   const [location, setLocation] = useState("");
   const [memberSince, setMemberSince] = useState("");
-  const [sellerRatings, setSellerRatings] = useState("");
   const [itemDescription, setItemDescription] = useState("");
   const [artistBiography, setArtistBiography] = useState("");
   const [artworkTechnique, setArtworkTechnique] = useState("");
@@ -31,6 +30,7 @@ const ItemsPage = () => {
   const [artworkDimensions, setArtworkDimensions] = useState("");
   const [artworkOrigin, setArtworkOrigin] = useState("");
   const [artworkPeriod, setArtworkPeriod] = useState("");
+  const [sellerRatings, setSellerRatings] = useState(null);
   const [legalInformation, setLegalInformation] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
@@ -116,6 +116,7 @@ const ItemsPage = () => {
     try {
       const itemId = uuidv4();
       const currentOfferValue = currentOffer !== "" ? parseInt(currentOffer) : null;
+      const sellerRatingsValue = sellerRatings !== "" ? parseInt(sellerRatings) : null;
       
       const { data, error } = await supabase.from("items").insert({
         id: itemId,
@@ -133,7 +134,7 @@ const ItemsPage = () => {
         seller_name: sellerName,
         location: location,
         member_since: memberSince,
-        seller_ratings: sellerRatings,
+        seller_ratings: sellerRatingsValue,
         item_description: itemDescription,
         artist_biography: artistBiography,
         artwork_technique: artworkTechnique,
