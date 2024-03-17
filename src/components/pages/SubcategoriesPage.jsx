@@ -21,18 +21,18 @@ const SubcategoriesPage = () => {
     fetchCategories();
     fetchSubcategories();
   }, []);
-  
+
   const fetchSubcategories = async () => {
     try {
       const { data, error } = await supabase
         .from('subcategories')
         .select('name, image_url, category_id, categories (name)')
         .order('created_at', { ascending: false });
-  
+
       if (error) {
         throw error;
       }
-  
+
       setSubcategories(data);
     } catch (error) {
       console.error('Error fetching subcategories:', error.message);
@@ -45,7 +45,7 @@ const SubcategoriesPage = () => {
       });
     }
   };
-  
+
 
   const fetchCategories = async () => {
     try {
@@ -70,16 +70,16 @@ const SubcategoriesPage = () => {
     const fileExtension = imageFile.name.split('.').pop();
     const uniqueFileName = `${uuidv4()}.${fileExtension}`;
     const { data: fileData, error: fileError } = await supabase.storage.from("subcategory-images").upload(`images/${uniqueFileName}`, imageFile);
-  
+
     if (fileError) {
       throw fileError;
     }
-  
+
     // Construct the URL directly
     const imageUrl = `https://tzfuvfxjjcywdrgivqzq.supabase.co/storage/v1/object/public/subcategory-images/images/${uniqueFileName}`;
     setImageUrl(imageUrl);
     return imageUrl;
-  };  
+  };
 
   const handleSubmit = async () => {
     try {
@@ -97,29 +97,29 @@ const SubcategoriesPage = () => {
       });
     }
   };
-  
+
   const finalizeCreation = async (uploadedImageUrl) => {
     try {
       // Use the uploaded image URL for subcategory creation
       const { data, error } = await supabase
         .from("subcategories")
         .insert({
-          name: subCategoryName, 
-          category_id: selectedCategory, 
+          name: subCategoryName,
+          category_id: selectedCategory,
           image_url: uploadedImageUrl // Use the uploaded image URL here
         });
-  
+
       if (error) {
         throw error;
       }
-  
+
       toast({
         title: "Subcategory created",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
-  
+
       // Reset the form state
       setSubCategoryName("");
       setSelectedCategory("");
@@ -135,58 +135,58 @@ const SubcategoriesPage = () => {
         isClosable: true,
       });
     }
-  };  
+  };
 
   return (
     <>
       <Header />
-            <Box>
+      <Box>
         <Input
-        placeholder="Enter subcategory name"
-        value={subCategoryName}
-        onChange={(e) => setSubCategoryName(e.target.value)}
-        mb={4}
-      />
-      <Select
-        placeholder="Select category"
-        value={selectedCategory}
-        onChange={(e) => setSelectedCategory(e.target.value)}
-        mb={4}
-      >
-        {categories.map((category) => (
-          <option key={category.id} value={category.id}>
-            {category.name}
-                </option>
-        ))}
-      </Select>
-      <FormControl mb={4}>
-        <FormLabel>Upload Image</FormLabel>
-        <Input type="file" onChange={handleFileChange} />
-        <FormHelperText>Upload an image for the subcategory.</FormHelperText>
-              </FormControl>
-            <Button colorScheme="blue" onClick={handleSubmit}>Upload Image</Button>
+          placeholder="Enter subcategory name"
+          value={subCategoryName}
+          onChange={(e) => setSubCategoryName(e.target.value)}
+          mb={4}
+        />
+        <Select
+          placeholder="Select category"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          mb={4}
+        >
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </Select>
+        <FormControl mb={4}>
+          <FormLabel>Upload Image</FormLabel>
+          <Input type="file" onChange={handleFileChange} />
+          <FormHelperText>Upload an image for the subcategory.</FormHelperText>
+        </FormControl>
+        <Button colorScheme="blue" onClick={handleSubmit}>Upload Image</Button>
       </Box>
       <Box mt={10}>
-      {subcategories.map((subcat) => (
-        <Box key={subcat.id} p={5} shadow="md" borderWidth="1px" mb={4}>
-          <Box display="flex" alignItems="center">
-            <Box flexShrink={0}>
-              <img src={subcat.image_url} alt={`Image for ${subcat.name}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
-            </Box>
-            <Box ml={4}>
-              <Box fontWeight="bold" letterSpacing="wide" fontSize="xl" textTransform="uppercase">
-                {subcat.name}
+        {subcategories.map((subcat) => (
+          <Box key={subcat.id} p={5} shadow="md" borderWidth="1px" mb={4}>
+            <Box display="flex" alignItems="center">
+              <Box flexShrink={0}>
+                <img src={subcat.image_url} alt={`Image for ${subcat.name}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
               </Box>
-              <Box>Category: {subcat.categories.name}</Box>
-              <Box>Category ID: {subcat.category_id}</Box>
+              <Box ml={4}>
+                <Box fontWeight="bold" letterSpacing="wide" fontSize="xl" textTransform="uppercase">
+                  {subcat.name}
+                </Box>
+                <Box>Category: {subcat.categories.name}</Box>
+                <Box>Category ID: {subcat.category_id}</Box>
+              </Box>
             </Box>
           </Box>
-        </Box>
-      ))}
-    </Box>
+        ))}
+      </Box>
 
     </>
   );
 };
-  
+
 export default SubcategoriesPage;
