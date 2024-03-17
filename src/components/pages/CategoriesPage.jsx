@@ -103,8 +103,27 @@ const CategoriesPage = () => {
                     onChange={(e) => setCategoryColor(e.target.value)}
                     mr={2}
                 >
-                    <option value="red">Red</option>
-                    {/* Add more color options */}
+                   <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="orange">Orange</option>
+                    <option value="purple">Purple</option>
+                    <option value="pink">Pink</option>
+                    <option value="cyan">Cyan</option>
+                    <option value="teal">Teal</option>
+                    <option value="lime">Lime</option>
+                    <option value="violet">Violet</option>
+                    <option value="indigo">Indigo</option>
+                    <option value="amber">Amber</option>
+                    <option value="brown">Brown</option>
+                    <option value="gray">Gray</option>
+                    <option value="black">Black</option>
+                    <option value="maroon">Maroon</option>
+                    <option value="navy">Navy</option>
+                    <option value="olive">Olive</option>
+                    <option value="silver">Silver</option>
+                    <option value="white">White</option>
                 </Select>
                 <Button colorScheme="blue" onClick={handleSubmit}>Create Category</Button>
             </Flex>
@@ -119,6 +138,8 @@ const CategoriesPage = () => {
                     mb={2}
                     display="flex"
                     justifyContent="space-between"
+                    maxWidth="fit-content"
+                    maxHeight="fit-content"
                 >
                     {category.name}
                     <MdDeleteForever
