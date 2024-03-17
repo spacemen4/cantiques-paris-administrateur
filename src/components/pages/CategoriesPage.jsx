@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Input, Button, useToast, Flex, Select, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 import { supabase } from "../../../supabase"; // Import the Supabase client instance
 import { MdDeleteForever } from "react-icons/md";
+import Header from "./../Header";
 
 const CategoriesPage = () => {
     const [categoryName, setCategoryName] = useState(""); // State for the new category name
@@ -111,6 +112,7 @@ const CategoriesPage = () => {
     };
 
     return (
+        <><Header/>
         <Box>
             <Input
                 placeholder="Enter category name"
@@ -189,6 +191,7 @@ const CategoriesPage = () => {
                 </ModalContent>
             </Modal>
         </Box>
+        </>
     );
 };
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ChakraProvider, Heading } from "@chakra-ui/react"; // Import Heading from Chakra UI
-import Header from "./components/Header";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import CategoriesPage from "./components/pages/CategoriesPage";
 import SubcategoriesPage from "./components/pages/SubcategoriesPage";

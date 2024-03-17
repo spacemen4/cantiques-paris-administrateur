@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Input, Textarea, Select, Button, useToast } from "@chakra-ui/react";
 import { supabase } from "../../../supabase"; // Import the Supabase client instance
+import Header from "./../Header";
 
 const ItemsPage = () => {
   const [title, setTitle] = useState("");
@@ -158,12 +159,14 @@ const ItemsPage = () => {
   };
 
   return (
+    <><Header/>
     <Box>
       {/* Input fields for item details */}
       {/* Handle category and subcategory selection */}
       {/* Button to submit the form */}
       {/* Toast for displaying success or error messages */}
     </Box>
+    </>
   );
 };
 

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Input, Select, Button, useToast, Flex, FormControl, FormLabel, FormHelperText } from "@chakra-ui/react";
 import { supabase } from "../../../supabase"; // Import the Supabase client instance
+import Header from "./../Header";
 
 const SubcategoriesPage = () => {
   const [subCategoryName, setSubCategoryName] = useState(""); // State for the new subcategory name
@@ -74,6 +75,7 @@ const SubcategoriesPage = () => {
   };
 
   return (
+    <><Header/>
     <Box>
       <Input
         placeholder="Enter subcategory name"
@@ -100,6 +102,7 @@ const SubcategoriesPage = () => {
       </FormControl>
       <Button colorScheme="blue" onClick={handleSubmit}>Create Subcategory</Button>
     </Box>
+    </>
   );
 };
 
