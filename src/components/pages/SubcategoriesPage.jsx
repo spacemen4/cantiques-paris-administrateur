@@ -40,17 +40,18 @@ const SubcategoriesPage = () => {
   };
 
   const uploadImage = async () => {
-    const uniqueFileName = `${uuidv4()}-${imageFile.name}`;
+    const uniqueFileName = `${uuidv4()}`;
     const { data: fileData, error: fileError } = await supabase.storage.from("subcategory-images").upload(`images/${uniqueFileName}`, imageFile);
-
+  
     if (fileError) {
       throw fileError;
     }
-
+  
+    // Update the imageUrl construction to use the simplified file name
     const imageUrl = `${process.env.REACT_APP_SUPABASE_URL}/storage/v1/object/public/subcategory-images/images/${uniqueFileName}`;
     setImageUrl(imageUrl);
     return imageUrl;
-  };
+  };  
 
   const handleSubmit = async () => {
     try {
