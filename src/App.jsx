@@ -25,8 +25,6 @@ const App = () => {
           <Route path="/interieur" element={<IntérieurPage />} />
           <Route path="/bijoux" element={<BijouxPage />} />
         </Routes>
-        <CollectionCard />
-        <CollectionsCarousel/>
         <Caroussel/>
         <ItemForSale />
         <FooterComponent />

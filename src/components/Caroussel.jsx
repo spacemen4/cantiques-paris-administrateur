@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Flex, IconButton, Image, Badge, Text } from '@chakra-ui/react';
+import { Box, Flex, IconButton, Image, Badge, Text, Button, Link } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
 const imageData = [
@@ -12,7 +12,6 @@ const imageData = [
   'public/images/collections/collection7.jpg',
 ];
 
-
 const data = [
   { category: 'DESIGN · VINTAGE', description: 'Design et vintage · Sans prix de réserve', count: 2819 },
   { category: 'INTÉRIEURS • DESIGN', description: 'Collection Intérieurs classiques exclusifs', count: 552 },
@@ -22,8 +21,6 @@ const data = [
   { category: 'INTÉRIEURS • DESIGN • ART', description: 'Collection Chambre de rêve', count: 285 },
   { category: 'INTÉRIEURS • DESIGN • ART', description: 'Collection Salon contemporain', count: 335 }
 ];
-
-const carouselColors = ['#E2E8F0', '#CBD5E0', '#A0AEC0', '#718096', '#4A5568', '#2D3748', '#1A202C'];
 
 const Carousel = () => {
   const [offset, setOffset] = useState(0);
@@ -70,40 +67,46 @@ const Carousel = () => {
             <Box
               key={index}
               w={`${boxWidth}px`}
-              h={`${boxHeight}px`}
               mx={2}
-              p={4}
               position="relative"
               overflow="hidden"
               bg="white" // Set each box background to white
               boxShadow="md" // Optional: add a shadow for better visibility
+              borderWidth="1px"
+              borderRadius="lg"
+              display="flex"
+              flexDirection="column"
             >
-              <Image src={imageData[index]} alt={item.description} boxSize="100%" objectFit="cover" />
-              <Badge
-                variant="solid"
-                colorScheme="teal"
-                position="absolute"
-                bottom="4"
-                right="4"
-                borderRadius="full" // Makes the badge circular or rounded
-              >
-                {new Date().toLocaleDateString('fr-FR')} // This will display the date in a French format
-              </Badge>
-              <Text position="absolute" bottom="4" left="4" color="white" fontWeight="bold" fontSize="lg">
-                {item.description}
-              </Text>
-              <Badge
-                variant="subtle"
-                colorScheme="gray"
-                position="absolute"
-                top="0"
-                left="0"
-                mt="2"
-                ml="2"
-                borderRadius="full"
-              >
-                Découvrez les {item.count} objets
-              </Badge>
+              <Box h={`${boxHeight * 0.66}px`} overflow="hidden">
+                <Image src={imageData[index]} alt={item.description} boxSize="100%" objectFit="cover" />
+              </Box>
+              <Box p={4} bg="white" borderTopWidth="1px">
+                <Badge
+                  variant="solid"
+                  colorScheme="teal"
+                  borderRadius="full" // Makes the badge circular or rounded
+                >
+                  {new Date().toLocaleDateString('fr-FR')} 
+                </Badge>
+                <Text mt={2} fontWeight="bold">
+                  {item.description}
+                </Text>
+                <Badge
+                  variant="subtle"
+                  colorScheme="gray"
+                  borderRadius="full"
+                  mt={2}
+                >
+                  Découvrez les {item.count} objets
+                </Badge>
+                <Flex justifyContent="flex-end" mt={4}>
+                  <Link href="#" isExternal>
+                    <Button size="sm" colorScheme="blue">
+                      Voir plus
+                    </Button>
+                  </Link>
+                </Flex>
+              </Box>
             </Box>
           ))}
         </Flex>
