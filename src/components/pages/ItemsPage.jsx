@@ -10,7 +10,7 @@ const ItemsPage = () => {
   const [title, setTitle] = useState("");
   const [lotNumber, setLotNumber] = useState("");
   const [closingTime, setClosingTime] = useState("");
-const [currentOffer, setCurrentOffer] = useState("");
+  const [currentOffer, setCurrentOffer] = useState("");
   const [noReservePrice, setNoReservePrice] = useState(false);
   const [estimatedGalleryValue, setEstimatedGalleryValue] = useState("");
   const [selectedBy, setSelectedBy] = useState("");
@@ -70,7 +70,7 @@ const [currentOffer, setCurrentOffer] = useState("");
       console.error("Error fetching subcategories:", error.message);
     }
   };
-  
+
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -78,21 +78,18 @@ const [currentOffer, setCurrentOffer] = useState("");
   };
 
   const uploadImage = async () => {
-    try {
-      const fileExtension = imageFile.name.split('.').pop();
-      const uniqueFileName = `${uuidv4()}.${fileExtension}`;
-      const { data: fileData, error: fileError } = await supabase.storage.from("items-images").upload(`images/${uniqueFileName}`, imageFile);
+    const fileExtension = imageFile.name.split('.').pop();
+    const uniqueFileName = `${uuidv4()}.${fileExtension}`;
+    const { data: fileData, error: fileError } = await supabase.storage.from("items-images").upload(`images/${uniqueFileName}`, imageFile);
 
-      if (fileError) {
-        throw fileError;
-      }
-
-      const imageUrl = `https://tzfuvfxjjcywdrgivqzq.supabase.co/storage/v1/object/public/items-images/images/${uniqueFileName}`;
-      setImageUrl(imageUrl);
-      return imageUrl;
-    } catch (error) {
-      throw error;
+    if (fileError) {
+      throw fileError;
     }
+
+    // Construct the URL directly
+    const imageUrl = `https://tzfuvfxjjcywdrgivqzq.supabase.co/storage/v1/object/public/items-images/images/${uniqueFileName}`;
+    setImageUrl(imageUrl);
+    return imageUrl;
   };
 
   const handleSubmit = async () => {
@@ -114,12 +111,15 @@ const [currentOffer, setCurrentOffer] = useState("");
 
   const createItem = async (uploadedImageUrl) => {
     try {
-      const currentOfferValue = currentOffer ? parseInt(currentOffer) : null; // Convert currentOffer to integer or null if it's empty
+      const itemId = uuidv4();
+      const currentOfferValue = currentOffer !== "" ? parseInt(currentOffer) : null;
+      
       const { data, error } = await supabase.from("items").insert({
-        title,
+        id: itemId,
+        title: title,
         lot_number: lotNumber,
         closing_time: closingTime,
-        current_offer: currentOfferValue, // Use the converted value
+        current_offer: currentOfferValue,
         no_reserve_price: noReservePrice,
         estimated_gallery_value: estimatedGalleryValue,
         selected_by: selectedBy,
@@ -128,7 +128,7 @@ const [currentOffer, setCurrentOffer] = useState("");
         shipping_to_france: shippingToFrance,
         shipping_to_portugal: shippingToPortugal,
         seller_name: sellerName,
-        location,
+        location: location,
         member_since: memberSince,
         seller_ratings: sellerRatings,
         item_description: itemDescription,
@@ -141,7 +141,7 @@ const [currentOffer, setCurrentOffer] = useState("");
         artwork_origin: artworkOrigin,
         artwork_period: artworkPeriod,
         legal_information: legalInformation,
-        image_url: uploadedImageUrl, // Store the uploaded image URL in the database
+        image_url: uploadedImageUrl,
         category_id: selectedCategory,
         subcategory_id: selectedSubcategory,
       });
@@ -156,7 +156,7 @@ const [currentOffer, setCurrentOffer] = useState("");
         duration: 3000,
         isClosable: true,
       });
-
+  
       // Clear form fields and reset image state
       clearFormFields();
       setImageUrl("");
@@ -172,6 +172,7 @@ const [currentOffer, setCurrentOffer] = useState("");
     }
   };
   
+
   const clearFormFields = () => {
     setTitle("");
     setLotNumber("");
@@ -226,7 +227,15 @@ const [currentOffer, setCurrentOffer] = useState("");
           mb={4}
         />
         {/* Add other input fields for item details */}
-
+        <Select
+          placeholder="No Reserve Price"
+          value={noReservePrice}
+          onChange={(e) => setNoReservePrice(e.target.value)}
+          mb={4}
+        >
+          <option value={true}>Yes</option>
+          <option value={false}>No</option>
+        </Select>
         {/* Category and Subcategory selection */}
         <Select
           placeholder="Select Category"
@@ -268,9 +277,9 @@ const [currentOffer, setCurrentOffer] = useState("");
           Create Item
         </Button>
 
-{/* Toast for displaying success or error messages */}
+        {/* Toast for displaying success or error messages */}
         {/* You can implement the toast here */}
-  
+
       </Box>
     </>
   );
