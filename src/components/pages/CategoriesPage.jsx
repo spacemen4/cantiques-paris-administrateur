@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Input, Button, useToast, Flex, Select } from "@chakra-ui/react";
+import { Box, Input, Button, useToast, Flex, Select, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 import { supabase } from "../../../supabase"; // Import the Supabase client instance
 import { MdDeleteForever } from "react-icons/md";
 
@@ -7,6 +7,8 @@ const CategoriesPage = () => {
     const [categoryName, setCategoryName] = useState(""); // State for the new category name
     const [categoryColor, setCategoryColor] = useState(""); // State for the category color
     const [existingCategories, setExistingCategories] = useState([]); // State for existing categories
+    const [deleteCategoryId, setDeleteCategoryId] = useState(null); // State for the category to delete
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // State for controlling the delete modal
     const toast = useToast(); // Toast for displaying success or error messages
 
     // Function to fetch existing categories from the database
@@ -88,6 +90,24 @@ const CategoriesPage = () => {
         }
     };
 
+    // Function to handle opening the delete confirmation modal
+    const handleOpenDeleteModal = (categoryId) => {
+        setDeleteCategoryId(categoryId);
+        setIsDeleteModalOpen(true);
+    };
+
+    // Function to handle closing the delete confirmation modal
+    const handleCloseDeleteModal = () => {
+        setIsDeleteModalOpen(false);
+        setDeleteCategoryId(null);
+    };
+
+    // Function to handle confirming deletion of a category
+    const handleConfirmDelete = () => {
+        handleDeleteCategory(deleteCategoryId);
+        setIsDeleteModalOpen(false);
+    };
+
     return (
         <Box>
             <Input
@@ -103,7 +123,7 @@ const CategoriesPage = () => {
                     onChange={(e) => setCategoryColor(e.target.value)}
                     mr={2}
                 >
-                   <option value="red">Red</option>
+                    <option value="red">Red</option>
                     <option value="blue">Blue</option>
                     <option value="green">Green</option>
                     <option value="yellow">Yellow</option>
@@ -143,12 +163,29 @@ const CategoriesPage = () => {
                 >
                     {category.name}
                     <MdDeleteForever
-                        onClick={() => handleDeleteCategory(category.id)}
+                        onClick={() => handleOpenDeleteModal(category.id)}
                         cursor="pointer"
                         size={20}
                     />
                 </Box>
             ))}
+            {/* Delete confirmation modal */}
+            <Modal isOpen={isDeleteModalOpen} onClose={handleCloseDeleteModal}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Delete Category</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        Are you sure you want to delete this category?
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button colorScheme="red" mr={3} onClick={handleConfirmDelete}>
+                            Delete
+                        </Button>
+                        <Button onClick={handleCloseDeleteModal}>Cancel</Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </Box>
     );
 };
