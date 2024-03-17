@@ -6,10 +6,10 @@ const imageData = [
   '/images/collections/collection1.jpg',
   '/images/collections/collection2.jpg',
   '/images/collections/collection3.jpg',
-  'public/images/collections/collection4.jpg',
-  'public/images/collections/collection5.jpg',
-  'public/images/collections/collection6.jpg',
-  'public/images/collections/collection7.jpg',
+  '/images/collections/collection4.jpg',
+  '/images/collections/collection5.jpg',
+  '/images/collections/collection6.jpg',
+  '/images/collections/collection7.jpg',
 ];
 
 const data = [
