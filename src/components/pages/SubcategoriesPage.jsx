@@ -1,19 +1,23 @@
-// SubcategoriesPage.js
 import React, { useState, useEffect } from "react";
-import { Box, Input, Select, Button, useToast, Flex, FormControl, FormLabel, FormHelperText } from "@chakra-ui/react";
-import { supabase } from "../../../supabase"; // Import the Supabase client instance
-import Header from "./../Header";
+import {
+  Box, Input, Select, Button, useToast, FormControl, FormLabel, FormHelperText,
+  Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, ModalCloseButton, useDisclosure
+} from "@chakra-ui/react";
+import { supabase } from "../../../supabase";
+import Header from "../Header";
 import { v4 as uuidv4 } from 'uuid';
 
 const SubcategoriesPage = () => {
-  const [subCategoryName, setSubCategoryName] = useState(""); // State for the new subcategory name
-  const [selectedCategory, setSelectedCategory] = useState(""); // State for the selected category
-  const [imageFile, setImageFile] = useState(null); // State for storing the selected image file
-  const [categories, setCategories] = useState([]); // State for storing categories
-  const toast = useToast(); // Toast for displaying success or error messages
+  const [subCategoryName, setSubCategoryName] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [imageUrl, setImageUrl] = useState("");
+  const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    fetchCategories(); // Fetch categories when the component mounts
+    fetchCategories();
   }, []);
 
   const fetchCategories = async () => {
@@ -30,63 +34,77 @@ const SubcategoriesPage = () => {
     }
   };
 
-const handleSubmit = async () => {
-  try {
-    // Generate a unique UUID for the image file name
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
+  };
+
+  const uploadImage = async () => {
     const uniqueFileName = `${uuidv4()}-${imageFile.name}`;
-    // Upload the image to the bucket with the unique file name
     const { data: fileData, error: fileError } = await supabase.storage.from("subcategory-images").upload(`images/${uniqueFileName}`, imageFile);
 
     if (fileError) {
       throw fileError;
     }
 
-    // Construct the URL of the uploaded image
-    // Note: You might need to adjust the URL pattern based on your Supabase setup
     const imageUrl = `${process.env.REACT_APP_SUPABASE_URL}/storage/v1/object/public/subcategory-images/images/${uniqueFileName}`;
+    setImageUrl(imageUrl);
+    return imageUrl;
+  };
 
-    // Send a POST request to create a new subcategory in the 'subcategories' table with the image URL
-    const { data, error } = await supabase
-      .from("subcategories")
-      .insert({ name: subCategoryName, category_id: selectedCategory, image_url: imageUrl });
-
-    if (error) {
-      throw error;
+  const handleSubmit = async () => {
+    try {
+      const uploadedImageUrl = await uploadImage();
+      onOpen(); // Open the modal after successful upload
+    } catch (error) {
+      console.error("Error uploading image:", error.message);
+      toast({
+        title: "Error",
+        description: "Failed to upload image",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
+  };
 
-    // Display a success message
-    toast({
-      title: "Subcategory created",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
+  const finalizeCreation = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("subcategories")
+        .insert({ name: subCategoryName, category_id: selectedCategory, image_url: imageUrl });
 
-    // Clear the input fields
-    setSubCategoryName("");
-    setSelectedCategory("");
-    setImageFile(null);
-  } catch (error) {
-    // Display an error message if the request fails
-    console.error("Error creating subcategory:", error.message);
-    toast({
-      title: "Error",
-      description: "Failed to create subcategory",
-      status: "error",
-      duration: 3000,
-      isClosable: true,
-    });
-  }
-};
+      if (error) {
+        throw error;
+      }
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setImageFile(file);
+      toast({
+        title: "Subcategory created",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+
+      setSubCategoryName("");
+      setSelectedCategory("");
+      setImageFile(null);
+      onClose(); // Close the modal
+    } catch (error) {
+      console.error("Error creating subcategory:", error.message);
+      toast({
+        title: "Error",
+        description: "Failed to create subcategory",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
-    <><Header/>
-    <Box>
+    <>
+      <Header />
+      <Box>
       <Input
         placeholder="Enter subcategory name"
         value={subCategoryName}
@@ -110,8 +128,25 @@ const handleSubmit = async () => {
         <Input type="file" onChange={handleFileChange} />
         <FormHelperText>Upload an image for the subcategory.</FormHelperText>
       </FormControl>
-      <Button colorScheme="blue" onClick={handleSubmit}>Create Subcategory</Button>
-    </Box>
+        <Button colorScheme="blue" onClick={handleSubmit}>Upload Image</Button>
+      </Box>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Image Uploaded Successfully</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <p>The image has been uploaded successfully. Here is the URL:</p>
+            <Input value={imageUrl} isReadOnly />
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={finalizeCreation}>
+              Create Subcategory
+            </Button>
+            <Button variant="ghost" onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };
