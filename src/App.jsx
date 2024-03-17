@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Heading } from "@chakra-ui/react"; // Import Heading from Chakra UI
 import Header from "./components/Header";
 import CategoriesPage from "./components/pages/CategoriesPage";
 import SubcategoriesPage from "./components/pages/SubcategoriesPage";
@@ -32,10 +32,7 @@ const App = () => {
         }}
       >
         <div style={{ width: "80%" }}>
-          <Heading textAlign="center" fontWeight="bold">
-            <Icon as={CiMedicalCross} color="red" boxSize="32px" /> Mon Super
-            PAD <Icon as={FcLockPortrait} color="red" boxSize="32px" />
-          </Heading>
+
 
           <Auth
             supabaseClient={supabase}
@@ -136,4 +133,4 @@ const App = () => {
   );
 };
 
-export default App; // Make sure to export the App component
+export default App;
