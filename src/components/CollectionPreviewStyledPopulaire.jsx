@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from '@chakra-ui/react';
-import CollectionCard from './CollectionCard'; // Make sure the path is correct for your project structure
+import CollectionCard from './CollectionCardPopulaire'; // Make sure the path is correct for your project structure
 
 const CollectionPreviewStyledPopulaire = () => {
   const dummyCollections = [
