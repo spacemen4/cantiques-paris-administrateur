@@ -28,11 +28,11 @@ const SubcategoriesPage = () => {
         .from('subcategories')
         .select('name, image_url, category_id, categories (name)')
         .order('created_at', { ascending: false });
-
+          
       if (error) {
         throw error;
       }
-
+  
       setSubcategories(data);
     } catch (error) {
       console.error('Error fetching subcategories:', error.message);
@@ -45,6 +45,7 @@ const SubcategoriesPage = () => {
       });
     }
   };
+  
 
 
   const fetchCategories = async () => {
