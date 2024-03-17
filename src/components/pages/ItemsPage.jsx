@@ -159,15 +159,71 @@ const ItemsPage = () => {
   };
 
   return (
-    <><Header/>
-    <Box>
-      {/* Input fields for item details */}
-      {/* Handle category and subcategory selection */}
-      {/* Button to submit the form */}
-      {/* Toast for displaying success or error messages */}
-    </Box>
+    <>
+      <Header />
+      <Box>
+        <Input
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Lot Number"
+          value={lotNumber}
+          onChange={(e) => setLotNumber(e.target.value)}
+          mb={4}
+        />
+        <Input
+          type="datetime-local"
+          placeholder="Closing Time"
+          value={closingTime}
+          onChange={(e) => setClosingTime(e.target.value)}
+          mb={4}
+        />
+        {/* Add other input fields for item details */}
+        
+        {/* Category and Subcategory selection */}
+        <Select
+          placeholder="Select Category"
+          value={selectedCategory}
+          onChange={(e) => {
+            setSelectedCategory(e.target.value);
+            fetchSubcategories(e.target.value); // Fetch subcategories when a category is selected
+          }}
+          mb={4}
+        >
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </Select>
+        <Select
+          placeholder="Select Subcategory"
+          value={selectedSubcategory}
+          onChange={(e) => setSelectedSubcategory(e.target.value)}
+          mb={4}
+        >
+          {subcategories.map((subcategory) => (
+            <option key={subcategory.id} value={subcategory.id}>
+              {subcategory.name}
+            </option>
+          ))}
+        </Select>
+  
+        {/* Button to submit the form */}
+        <Button colorScheme="blue" onClick={handleSubmit} mb={4}>
+          Create Item
+        </Button>
+  
+        {/* Toast for displaying success or error messages */}
+        {/* You can implement the toast here */}
+  
+      </Box>
     </>
   );
 };
 
 export default ItemsPage;
+  
