@@ -1,3 +1,5 @@
+// App.js
+
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -9,11 +11,7 @@ import ItemsPage from "./components/pages/ItemsPage";
 // Import the necessary components and theme
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
- 
-
-// Create a Supabase client instance
-import { createClient } from '@supabase/supabase-js';
-const supabase = createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_PUBLIC_KEY');
+import { supabase } from "./../supabase"; // Adjust the path as needed
 
 const App = () => {
   return (
@@ -27,6 +25,7 @@ const App = () => {
           <Route path="/items" element={<ItemsPage />} />
 
           {/* Auth routes */}
+          {/* Import Auth component and pass supabase client */}
           <Route path="/auth/*" element={<Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />} />
 
           {/* Default route */}
