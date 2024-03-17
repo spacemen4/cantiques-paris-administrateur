@@ -1,16 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"; // Import Navigate for redirection
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Heading } from "@chakra-ui/react";
 import HeaderTop from "./components/HeaderTop";
 import Header from "./components/Header";
 import ArtChoices from "./components/pages/ArtChoices";
 import IntérieurPage from "./components/pages/IntérieurPage";
 import BijouxPage from "./components/pages/BijouxPage";
-import CollectionCard from "./components/CollectionPreview";
+import CarousselVentePopulaire from "./components/CarousselVentePopulaire";
 import ItemForSale from "./components/ItemForSale";
 import FooterComponent from "./components/FooterComponent";
 import FooterBottom from "./components/FooterBottom";
-import CollectionsCarousel from "./components/CollectionsCarousel";
 import Caroussel from "./components/Caroussel";
 
 const App = () => {
@@ -25,7 +24,10 @@ const App = () => {
           <Route path="/interieur" element={<IntérieurPage />} />
           <Route path="/bijoux" element={<BijouxPage />} />
         </Routes>
+        <Heading>Collections populaires</Heading>
         <Caroussel/>
+        <Heading>Ventes populaires</Heading>
+        <CarousselVentePopulaire/>
         <ItemForSale />
         <FooterComponent />
         <FooterBottom />
