@@ -7,7 +7,7 @@ const CollectionCardPopulaire = ({ title, images, date, itemCount, itemLink }) =
 
   return (
     <Box borderRadius="lg" overflow="hidden">
-      <Box position="relative">
+      <Box >
         <Grid templateRows={gridTemplateRows} templateColumns={gridTemplateColumns} gap={2}>
           <GridItem colSpan={1} rowSpan={3} position="relative">
             <Image src={images[0].src} alt={images[0].alt} objectFit="cover" width="100%" height="100%" />
