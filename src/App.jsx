@@ -12,6 +12,7 @@ import FooterComponent from "./components/FooterComponent";
 import FooterBottom from "./components/FooterBottom";
 import Caroussel from "./components/Caroussel";
 import HorizontalCarousel from "./components/HorizontalCaroussel";
+import HorizontalCarouselBis from "./components/HorizontalCarousselBis";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <Heading>Ventes populaires</Heading>
         <CarousselVentePopulaire/>
         <HorizontalCarousel/>
+        <HorizontalCarouselBis/>
         <ItemForSale />
         <FooterComponent />
         <FooterBottom />
