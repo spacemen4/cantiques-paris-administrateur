@@ -8,7 +8,7 @@ const HorizontalCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const gridRef = useRef(null);
 
-  const visibleItems = useBreakpointValue({ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }) || 1;
+  const visibleItems = useBreakpointValue({ base: 1, sm: 2, md:2, lg: 3, xl: 4 }) || 1;
   const itemWidth = `${100 / visibleItems}%`;
 
   const handleNext = () => {
