@@ -10,8 +10,8 @@ const CollectionPreviewStyledPopulaire = () => {
         { src: './images/collections/collection1.jpg', alt: 'Image 1' },
         { src: './images/collections/collection2.jpg', alt: 'Image 2' },
         { src: './images/collections/collection3.jpg', alt: 'Image 3' },
-        { src: './images/collections/collection4.jpg', alt: 'Image 4' },
-        { src: './images/collections/collection5.jpg', alt: 'Image 5', counter: 633 },
+        { src: './images/collections/collection4.jpg', alt: 'Image 4', counter: 633 },
+        { src: './images/collections/collection5.jpg', alt: 'Image 5' },
         // Add more images if needed
       ],
       date: '23 et 24 mars',

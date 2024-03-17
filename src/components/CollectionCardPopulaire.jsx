@@ -27,6 +27,7 @@ const CollectionCardPopulaire = ({ title, images, date, itemCount, itemLink }) =
                       borderRadius="full"
                       px={2}
                       py={1}
+                      zIndex="1"
                     >
                       +{image.counter}
                     </Badge>
@@ -37,7 +38,7 @@ const CollectionCardPopulaire = ({ title, images, date, itemCount, itemLink }) =
                     right="0"
                     width="100%"
                     height="100%"
-                    bg="rgba(0,0,0,0.4)" // Transparent gray background
+                    bg="rgba(0,0,0,0.4)" // Transparent gray background 
                   />
                 </Box>
               ) : (
@@ -53,6 +54,7 @@ const CollectionCardPopulaire = ({ title, images, date, itemCount, itemLink }) =
                       borderRadius="full"
                       px={2}
                       py={1}
+                      zIndex="100"
                     >
                       +{image.counter}
                     </Badge>
