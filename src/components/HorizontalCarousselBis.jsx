@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Grid, GridItem, IconButton, Box, useBreakpointValue } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import CollectionPreview from './CollectionPreview'; // Ensure this path is correct
+import CollectionCard from './CollectionCard'; // Ensure the correct import path
 
 const HorizontalCarouselBis = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -14,8 +14,15 @@ const HorizontalCarouselBis = () => {
   const repeatCount = 5;
   // Create an array with `repeatCount` instances of CollectionPreview components
   const items = Array.from({ length: repeatCount }, (_, index) => (
-    <CollectionPreview key={index} />
-  ));
+    <CollectionCard
+      key={index}
+      images={[{ src: './images/collections/collection1.jpg', alt: 'Image Alt' }]} // Provide images prop here
+      title={`Collection ${index + 1}`} // Dummy title
+      date={`March ${index + 1}, 2024`} // Dummy date
+      itemCount={`${index * 20}`} // Dummy itemCount
+      itemLink="#" // Dummy itemLink
+    />
+  ));  
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex < items.length - visibleItems ? prevIndex + 1 : prevIndex));
@@ -46,7 +53,7 @@ const HorizontalCarouselBis = () => {
       />
       <Grid
         ref={gridRef}
-        templateColumns={`repeat(${items.length}, ${itemWidth})`}
+        templateColumns={`repeat(${items.length || 0}, ${itemWidth})`}
         gap={4}
         alignItems="center"
         overflowX="hidden"
