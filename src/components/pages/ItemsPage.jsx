@@ -56,6 +56,22 @@ const [currentOffer, setCurrentOffer] = useState("");
     }
   };
 
+  const fetchSubcategories = async (categoryId) => {
+    try {
+      const { data: subcategoriesData, error: subcategoriesError } = await supabase
+        .from("subcategories")
+        .select("*")
+        .eq("category_id", categoryId); // Filter subcategories by the selected category ID
+      if (subcategoriesError) {
+        throw subcategoriesError;
+      }
+      setSubcategories(subcategoriesData || []);
+    } catch (error) {
+      console.error("Error fetching subcategories:", error.message);
+    }
+  };
+  
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setImageFile(file);
