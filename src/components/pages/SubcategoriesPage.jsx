@@ -57,7 +57,8 @@ const SubcategoriesPage = () => {
   const handleSubmit = async () => {
     try {
       const uploadedImageUrl = await uploadImage();
-      onOpen(); // Open the modal after successful upload
+      // Call finalizeCreation directly after successful image upload
+      finalizeCreation(uploadedImageUrl); // Pass the uploaded image URL to finalizeCreation
     } catch (error) {
       console.error("Error uploading image:", error.message);
       toast({
@@ -69,28 +70,34 @@ const SubcategoriesPage = () => {
       });
     }
   };
-
-  const finalizeCreation = async () => {
+  
+  const finalizeCreation = async (uploadedImageUrl) => {
     try {
+      // Use the uploaded image URL for subcategory creation
       const { data, error } = await supabase
         .from("subcategories")
-        .insert({ name: subCategoryName, category_id: selectedCategory, image_url: imageUrl });
-
+        .insert({
+          name: subCategoryName, 
+          category_id: selectedCategory, 
+          image_url: uploadedImageUrl // Use the uploaded image URL here
+        });
+  
       if (error) {
         throw error;
       }
-
+  
       toast({
         title: "Subcategory created",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
-
+  
+      // Reset the form state
       setSubCategoryName("");
       setSelectedCategory("");
       setImageFile(null);
-      onClose(); // Close the modal
+      setImageUrl(""); // Reset the image URL state
     } catch (error) {
       console.error("Error creating subcategory:", error.message);
       toast({
@@ -101,7 +108,7 @@ const SubcategoriesPage = () => {
         isClosable: true,
       });
     }
-  };
+  };  
 
   return (
     <>
