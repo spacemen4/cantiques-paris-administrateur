@@ -11,6 +11,7 @@ import ItemForSale from "./components/ItemForSale";
 import FooterComponent from "./components/FooterComponent";
 import FooterBottom from "./components/FooterBottom";
 import Caroussel from "./components/Caroussel";
+import HorizontalCarousel from "./components/HorizontalCaroussel";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Caroussel/>
         <Heading>Ventes populaires</Heading>
         <CarousselVentePopulaire/>
+        <HorizontalCarousel/>
         <ItemForSale />
         <FooterComponent />
         <FooterBottom />
