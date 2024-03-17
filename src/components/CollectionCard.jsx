@@ -7,23 +7,23 @@ const CollectionCard = ({ title, images, date, itemCount, itemLink }) => {
 
   // Function to determine column span based on the image's position
   const getColumnSpan = (index) => {
-    if(index === 0 || index === 4) return 2; // First and last image span two columns
+    if (index === 0 || index === 4) return 2; // First and last image span two columns
     return 1; // Other images span one column
   };
 
   // Function to determine row span based on the image's position
   const getRowSpan = (index) => {
-    if(index === 0) return 2; // First image spans two rows
+    if (index === 0) return 2; // First image spans two rows
     return 1; // Other images span one row
   };
-  const imageBackground = "blue.50"; 
+  const imageBackground = "blue.50";
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
+    <Box  borderRadius="lg" overflow="hidden">
       <Box bg={imageBackground}> {/* Apply the background color here */}
         <Grid templateRows={gridTemplateRows} templateColumns={gridTemplateColumns} gap={2}>
           {images.map((image, index) => (
-            <GridItem key={index} colSpan={getColumnSpan(index)} rowSpan={getRowSpan(index)} border="2px" borderColor="gray.200" position="relative">
+            <GridItem key={index} colSpan={getColumnSpan(index)} rowSpan={getRowSpan(index)} position="relative">
               <Image src={image.src} alt={image.alt} objectFit="cover" width="100%" height="100%" />
               {image.counter && (
                 <Badge
