@@ -31,7 +31,7 @@ const SubcategoriesPage = () => {
   const handleSubmit = async () => {
     try {
       // Upload the image to the bucket
-      const { data: fileData, error: fileError } = await supabase.storage.from("subcategories").upload(subCategoryName, imageFile);
+      const { data: fileData, error: fileError } = await supabase.storage.from("subcategory-images").upload(subCategoryName, imageFile);
       if (fileError) {
         throw fileError;
       }
