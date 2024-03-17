@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Grid, GridItem, IconButton, Box } from '@chakra-ui/react';
+import { Grid, GridItem, IconButton, Box, useBreakpointValue } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
 const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6']; // Example items
@@ -8,8 +8,11 @@ const HorizontalCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const gridRef = useRef(null);
 
+  const visibleItems = useBreakpointValue({ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }) || 1;
+  const itemWidth = `${100 / visibleItems}%`;
+
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex < items.length - 4 ? prevIndex + 1 : prevIndex));
+    setCurrentIndex((prevIndex) => (prevIndex < items.length - visibleItems ? prevIndex + 1 : prevIndex));
   };
 
   const handlePrev = () => {
@@ -18,10 +21,10 @@ const HorizontalCarousel = () => {
 
   useEffect(() => {
     if (gridRef.current) {
-      const itemWidth = gridRef.current.offsetWidth / 4;
-      gridRef.current.scrollLeft = currentIndex * itemWidth;
+      const itemWidthPercentage = 100 / visibleItems;
+      gridRef.current.scrollLeft = currentIndex * itemWidthPercentage;
     }
-  }, [currentIndex]);
+  }, [currentIndex, visibleItems]);
 
   return (
     <Box position="relative" width="100%">
@@ -37,7 +40,7 @@ const HorizontalCarousel = () => {
       />
       <Grid
         ref={gridRef}
-        templateColumns={`repeat(${items.length}, 20%)`}
+        templateColumns={`repeat(${items.length}, ${itemWidth})`}
         gap={4}
         alignItems="center"
         overflowX="hidden"
@@ -53,7 +56,7 @@ const HorizontalCarousel = () => {
         icon={<ChevronRightIcon />}
         aria-label="Next"
         onClick={handleNext}
-        isDisabled={currentIndex === items.length - 4}
+        isDisabled={currentIndex === items.length - visibleItems}
         position="absolute"
         right={0}
         top="50%"
