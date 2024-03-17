@@ -50,70 +50,7 @@ const App = () => {
               },
             }}
             providers={[""]}
-            localization={{
-              variables: {
-                sign_in: {
-                  email_label: "Votre adresse mail",
-                  password_label: "Un mot de passe à au moins 8 caractères",
-                  email_input_placeholder: "Votre adresse mail",
-                  password_input_placeholder: "Votre mot de passe",
-                  button_label: "Connectez-vous",
-                  loading_button_label: "S'inscrire ...",
-                  social_provider_text: "",
-                  link_text: "Vous avez déjà un compte ? Connectez-vous",
-                },
-                sign_up: {
-                  email_label: "Votre adresse mail",
-                  password_label: "Un mot de passe à au moins 8 caractères",
-                  email_input_placeholder: "Votre adresse mail",
-                  password_input_placeholder: "Votre mot de passe",
-                  button_label: "Créez un compte",
-                  loading_button_label: "S'inscrire ...",
-                  social_provider_text: "Créez votre compte",
-                  link_text: "Vous n'avez pas de compte ? S'inscrire",
-                  confirmation_text:
-                    "Vérifiez votre e-mail pour le lien de confirmation",
-                },
-                magic_link: {
-                  email_label: "Votre adresse mail",
-                  email_input_placeholder: "Votre adresse mail",
-                  button_label: "Envoi d'un lien magique",
-                  loading_button_label: "Envoi d'un lien magique ...",
-                  link_text: "Vous n'avez pas de compte ? S'inscrire",
-                  confirmation_text:
-                    "Vérifiez votre e-mail pour le lien magique",
-                },
-                forgotten_password: {
-                  email_label: "Votre adresse mail",
-                  password_label: "Un mot de passe à au moins 8 caractères",
-                  email_input_placeholder: "Votre adresse mail",
-                  password_input_placeholder: "Votre mot de passe",
-                  button_label: "Envoi d'un nouveau mot de passe",
-                  loading_button_label:
-                    "Envoi en cours des instructions pour un nouveau mot de passe...",
-                  link_text: "Vous avez oublié votre mot de passe ?",
-                  confirmation_text:
-                    "Vérifiez votre e-mail pour le lien de confirmation d'un nouveau mot de passe",
-                },
-                update_password: {
-                  password_label: "Nouveau mot de passe",
-                  password_input_placeholder: "Votre nouveau mot de passe",
-                  button_label: "Mettre à jour votre mot de passe",
-                  loading_button_label: "Mise à jour de votre mot de passe ...",
-                  confirmation_text: "Votre mot de passe a été mis à jour",
-                },
-                verify_otp: {
-                  email_input_label: "Adresse Email",
-                  email_input_placeholder: "Votre adresse mail",
-                  phone_input_label: "Numéro de téléphone",
-                  phone_input_placeholder: "Votre numéro de téléphone",
-                  token_input_label: "Votre jeton",
-                  token_input_placeholder: "Votre jeton OTP",
-                  button_label: "Verifiez votre jeton",
-                  loading_button_label: "Entrain de s'inscrire ...",
-                },
-              },
-            }}
+
           />
         </div>
       </div>
