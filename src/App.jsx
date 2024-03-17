@@ -12,14 +12,20 @@ const ProtectedRoute = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
+    console.log('Supabase auth object:', supabase.auth);
     const session = supabase.auth.session();
-
+  
     setLoggedIn(!!session);
-
-    supabase.auth.onAuthStateChange((_event, session) => {
+  
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       setLoggedIn(!!session);
     });
+  
+    return () => {
+      authListener.unsubscribe();
+    };
   }, []);
+  
 
   if (!loggedIn) {
     // User not logged in, redirect to login page
