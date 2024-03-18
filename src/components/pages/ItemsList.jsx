@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "../../../supabase";
-import { Box, Text, Image, Button, useToast } from "@chakra-ui/react";
+import { Box, Image, Button, Badge, useToast } from "@chakra-ui/react";
 import { MdDeleteForever } from "react-icons/md";
-
 
 const ItemsList = () => {
   const [items, setItems] = useState([]);
+  const toast = useToast();
 
   useEffect(() => {
     fetchItems();
@@ -56,31 +56,31 @@ const ItemsList = () => {
           <Box display="flex" alignItems="center" mb={4}>
             <Image src={item.image_url} alt={`Image for ${item.title}`} width="100px" height="100px" objectFit="cover" mr={4} />
             <Box>
-              <Text>Title: {item.title}</Text>
-              <Text>Lot Number: {item.lot_number}</Text>
-              <Text>Closing Time: {item.closing_time}</Text>
-              <Text>Current Offer: {item.current_offer}</Text>
-              <Text>No Reserve Price: {item.no_reserve_price ? "Yes" : "No"}</Text>
-              <Text>Estimated Gallery Value: {item.estimated_gallery_value}</Text>
-              <Text>Selected By: {item.selected_by}</Text>
-              <Text>Buyer Protection Fee: {item.buyer_protection_fee}</Text>
-              <Text>Payment Methods: {item.payment_methods.join(", ")}</Text>
-              <Text>Shipping to France: {item.shipping_to_france}</Text>
-              <Text>Shipping to Portugal: {item.shipping_to_portugal}</Text>
-              <Text>Seller Name: {item.seller_name}</Text>
-              <Text>Location: {item.location}</Text>
-              <Text>Member Since: {item.member_since}</Text>
-              <Text>Seller Ratings: {item.seller_ratings}</Text>
-              <Text>Item Description: {item.item_description}</Text>
-              <Text>Artist Biography: {item.artist_biography}</Text>
-              <Text>Artwork Technique: {item.artwork_technique}</Text>
-              <Text>Artwork Signature: {item.artwork_signature}</Text>
-              <Text>Artwork Year: {item.artwork_year}</Text>
-              <Text>Artwork Condition: {item.artwork_condition}</Text>
-              <Text>Artwork Dimensions: {item.artwork_dimensions}</Text>
-              <Text>Artwork Origin: {item.artwork_origin}</Text>
-              <Text>Artwork Period: {item.artwork_period}</Text>
-              <Text>Legal Information: {item.legal_information}</Text>
+              <Badge colorScheme="blue" mb={2}>Title: {item.title}</Badge>
+              <Badge colorScheme="green" mb={2}>Lot Number: {item.lot_number}</Badge>
+              <Badge colorScheme="purple" mb={2}>Closing Time: {item.closing_time}</Badge>
+              <Badge colorScheme="pink" mb={2}>Current Offer: {item.current_offer}</Badge>
+              <Badge colorScheme="yellow" mb={2}>No Reserve Price: {item.no_reserve_price ? "Yes" : "No"}</Badge>
+              <Badge colorScheme="cyan" mb={2}>Estimated Gallery Value: {item.estimated_gallery_value}</Badge>
+              <Badge colorScheme="orange" mb={2}>Selected By: {item.selected_by}</Badge>
+              <Badge colorScheme="teal" mb={2}>Buyer Protection Fee: {item.buyer_protection_fee}</Badge>
+              <Badge colorScheme="red" mb={2}>Payment Methods: {item.payment_methods.join(", ")}</Badge>
+              <Badge colorScheme="gray" mb={2}>Shipping to France: {item.shipping_to_france}</Badge>
+              <Badge colorScheme="indigo" mb={2}>Shipping to Portugal: {item.shipping_to_portugal}</Badge>
+              <Badge colorScheme="cyan" mb={2}>Seller Name: {item.seller_name}</Badge>
+              <Badge colorScheme="teal" mb={2}>Location: {item.location}</Badge>
+              <Badge colorScheme="yellow" mb={2}>Member Since: {item.member_since}</Badge>
+              <Badge colorScheme="green" mb={2}>Seller Ratings: {item.seller_ratings}</Badge>
+              <Badge colorScheme="blue" mb={2}>Item Description: {item.item_description}</Badge>
+              <Badge colorScheme="purple" mb={2}>Artist Biography: {item.artist_biography}</Badge>
+              <Badge colorScheme="pink" mb={2}>Artwork Technique: {item.artwork_technique}</Badge>
+              <Badge colorScheme="gray" mb={2}>Artwork Signature: {item.artwork_signature}</Badge>
+              <Badge colorScheme="indigo" mb={2}>Artwork Year: {item.artwork_year}</Badge>
+              <Badge colorScheme="cyan" mb={2}>Artwork Condition: {item.artwork_condition}</Badge>
+              <Badge colorScheme="teal" mb={2}>Artwork Dimensions: {item.artwork_dimensions}</Badge>
+              <Badge colorScheme="yellow" mb={2}>Artwork Origin: {item.artwork_origin}</Badge>
+              <Badge colorScheme="green" mb={2}>Artwork Period: {item.artwork_period}</Badge>
+              <Badge colorScheme="blue" mb={2}>Legal Information: {item.legal_information}</Badge>
               {/* Add other item details here */}
             </Box>
           </Box>
