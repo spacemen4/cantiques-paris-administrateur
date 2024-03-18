@@ -5,6 +5,7 @@ import {
 import { supabase } from "../../../supabase";
 import Header from "../Header";
 import { v4 as uuidv4 } from 'uuid';
+import ItemsList from "./ItemsList";
 
 const ItemsPage = () => {
   const [title, setTitle] = useState("");
@@ -416,6 +417,7 @@ const ItemsPage = () => {
 
         {/* Toast for displaying success or error messages */}
         {/* You can implement the toast here */}
+        <ItemsList/>
 
       </Box>
     </>
