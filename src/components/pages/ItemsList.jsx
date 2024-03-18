@@ -23,13 +23,39 @@ const ItemsList = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      const { error } = await supabase.from("items").delete().eq('id', id);
+      if (error) {
+        throw error;
+      }
+      // Remove the deleted item from the state
+      setItems(items.filter(item => item.id !== id));
+      toast({
+        title: "Item deleted",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error("Error deleting item:", error.message);
+      toast({
+        title: "Error",
+        description: "Failed to delete item",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
   return (
-    <Box key={item.id} border="1px solid" p={4} mb={4}>
-      <Box display="flex" alignItems="center" mb={4}>
-        <Image src={item.image_url} alt={`Image for ${item.title}`} width="100px" height="100px" objectFit="cover" mr={4} />
-        <Box>
-          {items.map((item) => (
-            <Box key={item.id} border="1px solid" p={4} mb={4}>
+    <Box>
+      {items.map((item) => (
+        <Box key={item.id} border="1px solid" p={4} mb={4}>
+          <Box display="flex" alignItems="center" mb={4}>
+            <Image src={item.image_url} alt={`Image for ${item.title}`} width="100px" height="100px" objectFit="cover" mr={4} />
+            <Box>
               <Text>Title: {item.title}</Text>
               <Text>Lot Number: {item.lot_number}</Text>
               <Text>Closing Time: {item.closing_time}</Text>
@@ -57,14 +83,13 @@ const ItemsList = () => {
               <Text>Legal Information: {item.legal_information}</Text>
               {/* Add other item details here */}
             </Box>
-          ))}
+          </Box>
+          <Button colorScheme="red" onClick={() => handleDelete(item.id)}>
+            <MdDeleteForever /> Delete
+          </Button>
         </Box>
-      </Box>
-      <Button colorScheme="red" onClick={() => handleDelete(item.id)}>
-        <MdDeleteForever /> Delete
-      </Button>
+      ))}
     </Box>
-
   );
 };
 
