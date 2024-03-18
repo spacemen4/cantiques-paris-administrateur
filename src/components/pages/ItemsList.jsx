@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "../../../supabase";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, Image, Button, useToast } from "@chakra-ui/react";
+import { MdDeleteForever } from "react-icons/md";
+
 
 const ItemsList = () => {
   const [items, setItems] = useState([]);
