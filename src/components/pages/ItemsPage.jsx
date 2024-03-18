@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-  Box, Input, Select, Button, useToast, FormControl, FormLabel, FormHelperText,
+  Box, Input, Select, Button, useToast, FormControl, FormLabel, FormHelperText, Checkbox, CheckboxGroup,
 } from "@chakra-ui/react";
 import { supabase } from "../../../supabase";
 import Header from "../Header";
@@ -207,6 +207,7 @@ const ItemsPage = () => {
     setSelectedSubcategory("");
   };
 
+  const availablePaymentMethods = ["PayPal", "Mastercard", "Card", "Espece"];
   return (
     <>
       <Header />
@@ -301,12 +302,13 @@ const ItemsPage = () => {
           onChange={(e) => setBuyerProtectionFee(e.target.value)}
           mb={4}
         />
-        <Input
-          placeholder="Payment Methods"
-          value={paymentMethods}
-          onChange={(e) => setPaymentMethods(e.target.value)}
-          mb={4}
-        />
+<CheckboxGroup value={paymentMethods} onChange={setPaymentMethods}>
+  {availablePaymentMethods.map((method) => (
+    <Checkbox key={method} value={method}>
+      {method}
+    </Checkbox>
+  ))}
+</CheckboxGroup>
         <Input
           placeholder="Shipping to France"
           value={shippingToFrance}
@@ -332,6 +334,7 @@ const ItemsPage = () => {
           mb={4}
         />
         <Input
+          type="date"
           placeholder="Member Since"
           value={memberSince}
           onChange={(e) => setMemberSince(e.target.value)}
@@ -362,18 +365,19 @@ const ItemsPage = () => {
           onChange={(e) => setArtworkTechnique(e.target.value)}
           mb={4}
         />
-        <Input
-          placeholder="Artwork Signature"
-          value={artworkSignature}
-          onChange={(e) => setArtworkSignature(e.target.value)}
-          mb={4}
-        />
-        <Input
-          placeholder="Artwork Year"
-          value={artworkYear}
-          onChange={(e) => setArtworkYear(e.target.value)}
-          mb={4}
-        />
+<Input
+  placeholder="Artwork Signature"
+  value={artworkSignature}
+  onChange={(e) => setArtworkSignature(e.target.value)}
+  mb={4}
+/>
+<Input
+  type="number"
+  placeholder="Artwork Year"
+  value={artworkYear}
+  onChange={(e) => setArtworkYear(e.target.value)}
+  mb={4}
+/>
         <Input
           placeholder="Artwork Condition"
           value={artworkCondition}
