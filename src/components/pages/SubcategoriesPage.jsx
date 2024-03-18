@@ -168,7 +168,7 @@ const SubcategoriesPage = () => {
   return (
     <>
       <Header />
-      <Box>
+      <Box padding="10px">
         <Input
           placeholder="Enter subcategory name"
           value={subCategoryName}

@@ -212,7 +212,7 @@ const ItemsPage = () => {
   return (
     <>
       <Header />
-      <Box>
+      <Box padding="10px">
         <Input
           placeholder="Title"
           value={title}

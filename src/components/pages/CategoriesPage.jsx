@@ -113,7 +113,7 @@ const CategoriesPage = () => {
 
     return (
         <><Header/>
-        <Box>
+        <Box padding="10px">
             <Input
                 placeholder="Enter category name"
                 value={categoryName}

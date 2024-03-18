@@ -50,7 +50,7 @@ const ItemsList = () => {
   };
 
   return (
-    <Box>
+    <Box padding="10px">
       {items.map((item) => (
         <Box key={item.id} border="1px solid" p={4} mb={4}>
           <Box display="flex" alignItems="center" mb={4}>
