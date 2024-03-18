@@ -82,17 +82,17 @@ const ItemsPage = () => {
     const { data: fileData, error: fileError } = await supabase.storage
       .from("items-images")
       .upload(`images/${uniqueFileName}`, imageFile);
-  
+
     if (fileError) {
       throw fileError;
     }
-  
+
     // Construct the URL directly
     const imageUrl = `https://tzfuvfxjjcywdrgivqzq.supabase.co/storage/v1/object/public/items-images/images/${uniqueFileName}`;
     setImageUrl(imageUrl); // Set the imageUrl state here
     return imageUrl;
   };
-  
+
 
   const handleSubmit = async () => {
     try {
@@ -110,14 +110,14 @@ const ItemsPage = () => {
       });
     }
   };
-  
+
 
   const createItem = async (uploadedImageUrl) => {
     try {
       const itemId = uuidv4();
       const currentOfferValue = currentOffer !== "" ? parseInt(currentOffer) : null;
       const sellerRatingsValue = sellerRatings !== "" ? parseInt(sellerRatings) : null;
-      
+
       const { data, error } = await supabase.from("items").insert({
         id: itemId,
         title: title,
@@ -149,18 +149,18 @@ const ItemsPage = () => {
         category_id: selectedCategory,
         subcategory_id: selectedSubcategory,
       });
-  
+
       if (error) {
         throw error;
       }
-  
+
       toast({
         title: "Item created",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
-  
+
       // Clear form fields and reset image state
       clearFormFields();
       setImageUrl("");
@@ -175,7 +175,7 @@ const ItemsPage = () => {
       });
     }
   };
-  
+
 
   const clearFormFields = () => {
     setTitle("");
@@ -276,7 +276,134 @@ const ItemsPage = () => {
           <FormHelperText>Upload an image for the item.</FormHelperText>
         </FormControl>
 
-        {/* Button to submit the form */}
+        <Input
+          placeholder="Current Offer"
+          type="number"
+          value={currentOffer}
+          onChange={(e) => setCurrentOffer(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Estimated Gallery Value"
+          value={estimatedGalleryValue}
+          onChange={(e) => setEstimatedGalleryValue(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Selected By"
+          value={selectedBy}
+          onChange={(e) => setSelectedBy(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Buyer Protection Fee"
+          value={buyerProtectionFee}
+          onChange={(e) => setBuyerProtectionFee(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Payment Methods"
+          value={paymentMethods}
+          onChange={(e) => setPaymentMethods(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Shipping to France"
+          value={shippingToFrance}
+          onChange={(e) => setShippingToFrance(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Shipping to Portugal"
+          value={shippingToPortugal}
+          onChange={(e) => setShippingToPortugal(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Seller Name"
+          value={sellerName}
+          onChange={(e) => setSellerName(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Member Since"
+          value={memberSince}
+          onChange={(e) => setMemberSince(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Seller Ratings"
+          type="number"
+          value={sellerRatings}
+          onChange={(e) => setSellerRatings(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Item Description"
+          value={itemDescription}
+          onChange={(e) => setItemDescription(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Artist Biography"
+          value={artistBiography}
+          onChange={(e) => setArtistBiography(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Artwork Technique"
+          value={artworkTechnique}
+          onChange={(e) => setArtworkTechnique(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Artwork Signature"
+          value={artworkSignature}
+          onChange={(e) => setArtworkSignature(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Artwork Year"
+          value={artworkYear}
+          onChange={(e) => setArtworkYear(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Artwork Condition"
+          value={artworkCondition}
+          onChange={(e) => setArtworkCondition(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Artwork Dimensions"
+          value={artworkDimensions}
+          onChange={(e) => setArtworkDimensions(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Artwork Origin"
+          value={artworkOrigin}
+          onChange={(e) => setArtworkOrigin(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Artwork Period"
+          value={artworkPeriod}
+          onChange={(e) => setArtworkPeriod(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Legal Information"
+          value={legalInformation}
+          onChange={(e) => setLegalInformation(e.target.value)}
+          mb={4}
+        />
         <Button colorScheme="blue" onClick={handleSubmit} mb={4}>
           Create Item
         </Button>
