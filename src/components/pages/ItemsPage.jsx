@@ -270,7 +270,7 @@ const ItemsPage = () => {
           ))}
         </Select>
 
-       
+
 
         <Input
           placeholder="Current Offer"
@@ -298,13 +298,13 @@ const ItemsPage = () => {
           mb={4}
         />
         <Heading>Méthode de paiement</Heading>
-<CheckboxGroup value={paymentMethods} onChange={setPaymentMethods}>
-  {availablePaymentMethods.map((method) => (
-    <Checkbox key={method} value={method}>
-      {method}
-    </Checkbox>
-  ))}
-</CheckboxGroup>
+        <CheckboxGroup value={paymentMethods} onChange={setPaymentMethods}>
+          {availablePaymentMethods.map((method) => (
+            <Checkbox key={method} value={method}>
+              {method}
+            </Checkbox>
+          ))}
+        </CheckboxGroup>
         <Input
           placeholder="Shipping to France"
           value={shippingToFrance}
@@ -361,19 +361,19 @@ const ItemsPage = () => {
           onChange={(e) => setArtworkTechnique(e.target.value)}
           mb={4}
         />
-<Input
-  placeholder="Artwork Signature"
-  value={artworkSignature}
-  onChange={(e) => setArtworkSignature(e.target.value)}
-  mb={4}
-/>
-<Input
-  type="number"
-  placeholder="Artwork Year"
-  value={artworkYear}
-  onChange={(e) => setArtworkYear(e.target.value)}
-  mb={4}
-/>
+        <Input
+          placeholder="Artwork Signature"
+          value={artworkSignature}
+          onChange={(e) => setArtworkSignature(e.target.value)}
+          mb={4}
+        />
+        <Input
+          type="number"
+          placeholder="Artwork Year"
+          value={artworkYear}
+          onChange={(e) => setArtworkYear(e.target.value)}
+          mb={4}
+        />
         <Input
           placeholder="Artwork Condition"
           value={artworkCondition}
@@ -404,8 +404,8 @@ const ItemsPage = () => {
           onChange={(e) => setLegalInformation(e.target.value)}
           mb={4}
         />
-         {/* File upload */}
-         <FormControl mb={4}>
+        {/* File upload */}
+        <FormControl mb={4}>
           <FormLabel>Upload Image</FormLabel>
           <Input type="file" onChange={handleFileChange} />
           <FormHelperText>Upload an image for the item.</FormHelperText>
