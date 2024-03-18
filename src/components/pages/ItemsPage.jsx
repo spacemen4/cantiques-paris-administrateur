@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-  Box, Input, Select, Button, useToast, FormControl, FormLabel, FormHelperText, Checkbox, CheckboxGroup,
+  Box, Input, Select, Button, useToast, FormControl, FormLabel, FormHelperText, Checkbox, CheckboxGroup, Heading,
 } from "@chakra-ui/react";
 import { supabase } from "../../../supabase";
 import Header from "../Header";
@@ -270,12 +270,7 @@ const ItemsPage = () => {
           ))}
         </Select>
 
-        {/* File upload */}
-        <FormControl mb={4}>
-          <FormLabel>Upload Image</FormLabel>
-          <Input type="file" onChange={handleFileChange} />
-          <FormHelperText>Upload an image for the item.</FormHelperText>
-        </FormControl>
+       
 
         <Input
           placeholder="Current Offer"
@@ -302,6 +297,7 @@ const ItemsPage = () => {
           onChange={(e) => setBuyerProtectionFee(e.target.value)}
           mb={4}
         />
+        <Heading>Méthode de paiement</Heading>
 <CheckboxGroup value={paymentMethods} onChange={setPaymentMethods}>
   {availablePaymentMethods.map((method) => (
     <Checkbox key={method} value={method}>
@@ -408,6 +404,12 @@ const ItemsPage = () => {
           onChange={(e) => setLegalInformation(e.target.value)}
           mb={4}
         />
+         {/* File upload */}
+         <FormControl mb={4}>
+          <FormLabel>Upload Image</FormLabel>
+          <Input type="file" onChange={handleFileChange} />
+          <FormHelperText>Upload an image for the item.</FormHelperText>
+        </FormControl>
         <Button colorScheme="blue" onClick={handleSubmit} mb={4}>
           Create Item
         </Button>
