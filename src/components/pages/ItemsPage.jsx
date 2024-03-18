@@ -218,12 +218,14 @@ const ItemsPage = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Lot Number"
           value={lotNumber}
           onChange={(e) => setLotNumber(e.target.value)}
           mb={4}
+          required
         />
         <Input
           type="datetime-local"
@@ -231,6 +233,7 @@ const ItemsPage = () => {
           value={closingTime}
           onChange={(e) => setClosingTime(e.target.value)}
           mb={4}
+          required
         />
         {/* Add other input fields for item details */}
         <Select
@@ -238,6 +241,7 @@ const ItemsPage = () => {
           value={noReservePrice}
           onChange={(e) => setNoReservePrice(e.target.value)}
           mb={4}
+          required
         >
           <option value={true}>Yes</option>
           <option value={false}>No</option>
@@ -251,6 +255,7 @@ const ItemsPage = () => {
             fetchSubcategories(e.target.value);
           }}
           mb={4}
+          required
         >
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
@@ -263,6 +268,7 @@ const ItemsPage = () => {
           value={selectedSubcategory}
           onChange={(e) => setSelectedSubcategory(e.target.value)}
           mb={4}
+          required
         >
           {subcategories.map((subcategory) => (
             <option key={subcategory.id} value={subcategory.id}>
@@ -279,27 +285,31 @@ const ItemsPage = () => {
           value={currentOffer}
           onChange={(e) => setCurrentOffer(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Estimated Gallery Value"
           value={estimatedGalleryValue}
           onChange={(e) => setEstimatedGalleryValue(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Selected By"
           value={selectedBy}
           onChange={(e) => setSelectedBy(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Buyer Protection Fee"
           value={buyerProtectionFee}
           onChange={(e) => setBuyerProtectionFee(e.target.value)}
           mb={4}
+          required
         />
         <Heading>Méthode de paiement</Heading>
-        <CheckboxGroup value={paymentMethods} onChange={setPaymentMethods}>
+        <CheckboxGroup value={paymentMethods} onChange={setPaymentMethods} mb={4} required>
           {availablePaymentMethods.map((method) => (
             <Checkbox key={method} value={method}>
               {method}
@@ -311,24 +321,28 @@ const ItemsPage = () => {
           value={shippingToFrance}
           onChange={(e) => setShippingToFrance(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Shipping to Portugal"
           value={shippingToPortugal}
           onChange={(e) => setShippingToPortugal(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Seller Name"
           value={sellerName}
           onChange={(e) => setSellerName(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Location"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           mb={4}
+          required
         />
         <Input
           type="date"
@@ -336,6 +350,7 @@ const ItemsPage = () => {
           value={memberSince}
           onChange={(e) => setMemberSince(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Seller Ratings"
@@ -343,30 +358,35 @@ const ItemsPage = () => {
           value={sellerRatings}
           onChange={(e) => setSellerRatings(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Item Description"
           value={itemDescription}
           onChange={(e) => setItemDescription(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Artist Biography"
           value={artistBiography}
           onChange={(e) => setArtistBiography(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Artwork Technique"
           value={artworkTechnique}
           onChange={(e) => setArtworkTechnique(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Artwork Signature"
           value={artworkSignature}
           onChange={(e) => setArtworkSignature(e.target.value)}
           mb={4}
+          required
         />
         <Input
           type="number"
@@ -374,41 +394,47 @@ const ItemsPage = () => {
           value={artworkYear}
           onChange={(e) => setArtworkYear(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Artwork Condition"
           value={artworkCondition}
           onChange={(e) => setArtworkCondition(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Artwork Dimensions"
           value={artworkDimensions}
           onChange={(e) => setArtworkDimensions(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Artwork Origin"
           value={artworkOrigin}
           onChange={(e) => setArtworkOrigin(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Artwork Period"
           value={artworkPeriod}
           onChange={(e) => setArtworkPeriod(e.target.value)}
           mb={4}
+          required
         />
         <Input
           placeholder="Legal Information"
           value={legalInformation}
           onChange={(e) => setLegalInformation(e.target.value)}
           mb={4}
+          required
         />
         {/* File upload */}
-        <FormControl mb={4}>
+        <FormControl mb={4} required>
           <FormLabel>Upload Image</FormLabel>
-          <Input type="file" onChange={handleFileChange} />
+          <Input type="file" onChange={handleFileChange} required />
           <FormHelperText>Upload an image for the item.</FormHelperText>
         </FormControl>
         <Button colorScheme="blue" onClick={handleSubmit} mb={4}>
