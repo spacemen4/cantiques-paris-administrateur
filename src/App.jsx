@@ -59,6 +59,7 @@ const App = () => {
                   password_input_placeholder: 'Votre mot de passe',
                   button_label: 'Se connecter',
                   loading_button_label: 'Connexion en cours...',
+                  social_provider_text:"🚀 S'inscrire au panneau administrateur de Cantiques Paris",
                   link_text: 'Vous avez déjà un compte? Connectez-vous',
                 },
                 sign_up: {
