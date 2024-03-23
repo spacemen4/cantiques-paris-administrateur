@@ -1,4 +1,3 @@
-// Header.js
 import React from "react";
 import { Flex, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +20,10 @@ const Header = () => {
         </Button>
         <Button variant="ghost" colorScheme="purple" onClick={() => handleButtonClick("/items")}>
           Items
+        </Button>
+        {/* Add button for AddColumnForm */}
+        <Button variant="ghost" colorScheme="green" onClick={() => handleButtonClick("/add-column")}>
+          Add Column
         </Button>
       </Flex>
     </Flex>
