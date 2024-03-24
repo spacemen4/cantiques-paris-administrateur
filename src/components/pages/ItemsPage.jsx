@@ -106,59 +106,59 @@ const ItemsPage = () => {
 
   const createItem = async (uploadedImageUrl) => {
     try {
-        const itemId = uuidv4();
-        const currentOfferValue = currentOffer !== "" ? parseInt(currentOffer) : null;
+      const itemId = uuidv4();
+      const currentOfferValue = currentOffer !== "" ? parseInt(currentOffer) : null;
 
-        const { data, error } = await supabase.from("items").insert({
-            id: itemId,
-            title: title,
-            lot_number: lotNumber,
-            closing_time: closingTime,
-            current_offer: currentOfferValue,
+      const { data, error } = await supabase.from("items").insert({
+        id: itemId,
+        title: title,
+        lot_number: lotNumber,
+        closing_time: closingTime,
+        current_offer: currentOfferValue,
 
-            estimated_gallery_value: estimatedGalleryValue,
-            selected_by: selectedBy,
+        estimated_gallery_value: estimatedGalleryValue,
+        selected_by: selectedBy,
 
-            payment_methods: paymentMethods,
-            item_description: itemDescription,
-            legal_information: legalInformation,
-            category_id: selectedCategory,
-            subcategory_id: selectedSubcategory,
-            image_url: uploadedImageUrl,
-            brand: brand,
-            weight: weight,
-            dimensions: dimensions,
-            pierre: pierre,
-            metal: metal,
-            genre: genre,
-        });
+        payment_methods: paymentMethods,
+        item_description: itemDescription,
+        legal_information: legalInformation,
+        category_id: selectedCategory,
+        subcategory_id: selectedSubcategory,
+        image_url: uploadedImageUrl,
+        brand: brand,
+        weight: weight,
+        dimensions: dimensions,
+        pierre: pierre,
+        metal: metal,
+        genre: genre,
+      });
 
-        if (error) {
-            throw error;
-        }
+      if (error) {
+        throw error;
+      }
 
-        toast({
-            title: "Article créé",
-            status: "success",
-            duration: 3000,
-            isClosable: true,
-        });
+      toast({
+        title: "Article créé",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
 
-        // Effacer les champs du formulaire et réinitialiser l'état de l'image
-        clearFormFields();
-        setImageUrl("");
+      // Effacer les champs du formulaire et réinitialiser l'état de l'image
+      clearFormFields();
+      setImageUrl("");
     } catch (error) {
-        console.error("Erreur lors de la création de l'article :", error.message);
-        console.log("Détails de l'erreur :", error.details); // Journaliser les détails de l'erreur dans la console
-        toast({
-            title: "Erreur",
-            description: "Échec de la création de l'article",
-            status: "error",
-            duration: 3000,
-            isClosable: true,
-        });
+      console.error("Erreur lors de la création de l'article :", error.message);
+      console.log("Détails de l'erreur :", error.details); // Journaliser les détails de l'erreur dans la console
+      toast({
+        title: "Erreur",
+        description: "Échec de la création de l'article",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
-};
+  };
 
   const clearFormFields = () => {
     setTitle("");
@@ -285,12 +285,32 @@ const ItemsPage = () => {
           mb={4}
           required
         />
-        <Input
-          placeholder="Marque"
+        <Select
+          placeholder="Sélectionner la marque"
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
           mb={4}
-        />
+        >
+          <option value="Cartier">Cartier</option>
+          <option value="Tiffany & Co.">Tiffany & Co.</option>
+          <option value="Bvlgari">Bvlgari</option>
+          <option value="Chopard">Chopard</option>
+          <option value="Harry Winston">Harry Winston</option>
+          <option value="Van Cleef & Arpels">Van Cleef & Arpels</option>
+          <option value="Piaget">Piaget</option>
+          <option value="Graff">Graff</option>
+          <option value="David Yurman">David Yurman</option>
+          <option value="Mikimoto">Mikimoto</option>
+          <option value="Boucheron">Boucheron</option>
+          <option value="Messika">Messika</option>
+          <option value="De Beers">De Beers</option>
+          <option value="Chaumet">Chaumet</option>
+          <option value="Pomellato">Pomellato</option>
+          <option value="Piaget">Piaget</option>
+          <option value="Gucci">Gucci</option>
+          <option value="Damiani">Damiani</option>
+          {/* Ajoutez d'autres marques ici selon vos besoins */}
+        </Select>
         <Input
           placeholder="Poids"
           value={weight}
@@ -303,24 +323,62 @@ const ItemsPage = () => {
           onChange={(e) => setDimensions(e.target.value)}
           mb={4}
         />
-        <Input
-          placeholder="Pierre"
+        <Select
+          placeholder="Sélectionner la pierre"
           value={pierre}
           onChange={(e) => setPierre(e.target.value)}
           mb={4}
-        />
-        <Input
-          placeholder="Métal"
+        >
+          <option value="Diamant">Diamant</option>
+          <option value="Émeraude">Émeraude</option>
+          <option value="Rubis">Rubis</option>
+          <option value="Saphir">Saphir</option>
+          <option value="Opale">Opale</option>
+          <option value="Topaze">Topaze</option>
+          <option value="Améthyste">Améthyste</option>
+          <option value="Turquoise">Turquoise</option>
+          <option value="Perle">Perle</option>
+          <option value="Citrine">Citrine</option>
+          <option value="Aigue-marine">Aigue-marine</option>
+          <option value="Quartz rose">Quartz rose</option>
+          <option value="Onyx">Onyx</option>
+          <option value="Jade">Jade</option>
+          <option value="Lapis-lazuli">Lapis-lazuli</option>
+          <option value="Agate">Agate</option>
+          <option value="Cornaline">Cornaline</option>
+          {/* Ajoutez d'autres pierres ici selon vos besoins */}
+        </Select>
+        <Select
+          placeholder="Sélectionner le métal"
           value={metal}
           onChange={(e) => setMetal(e.target.value)}
           mb={4}
-        />
-        <Input
-          placeholder="Genre"
+          required
+        >
+          <option value="Or">Or</option>
+          <option value="Argent">Argent</option>
+          <option value="Bronze">Bronze</option>
+          <option value="Cuivre">Cuivre</option>
+          <option value="Platine">Platine</option>
+          <option value="Fer">Fer</option>
+          <option value="Aluminium">Aluminium</option>
+          <option value="Acier">Acier</option>
+          <option value="Titane">Titane</option>
+          <option value="Zinc">Zinc</option>
+          <option value="Nickel">Nickel</option>
+          {/* Ajoutez d'autres métaux ici selon vos besoins */}
+        </Select>
+
+        <Select
+          placeholder="Sélectionner le genre"
           value={genre}
           onChange={(e) => setGenre(e.target.value)}
           mb={4}
-        />
+        >
+          <option value="Homme">Homme</option>
+          <option value="Femme">Femme</option>
+          <option value="Unisexe">Unisexe</option>
+        </Select>
         {/* Téléchargement de fichiers */}
         <FormControl mb={4} required>
           <FormLabel>Télécharger une image</FormLabel>
@@ -333,7 +391,7 @@ const ItemsPage = () => {
 
         {/* Toast pour afficher les messages de succès ou d'erreur */}
         {/* Vous pouvez implémenter le toast ici */}
-        <ItemsList/>
+        <ItemsList />
 
       </Box>
     </>
