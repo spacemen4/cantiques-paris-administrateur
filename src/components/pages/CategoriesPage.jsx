@@ -1,6 +1,6 @@
 // CategoriesPage.js
 import React, { useState, useEffect } from "react";
-import { Box, Input, Button, useToast, Flex, Select, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
+import { Box, Input, Button, useToast, Flex, Text, Select, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 import { supabase } from "../../../supabase"; // Importez l'instance client Supabase
 import { MdDeleteForever } from "react-icons/md";
 import Header from "./../Header";
@@ -149,9 +149,11 @@ const CategoriesPage = () => {
                         <option value="silver">Argent</option>
                         <option value="white">Blanc</option>
                     </Select>
-                    <Button colorScheme="blue" onClick={handleSubmit}>Créer la catégorie</Button>
+                    
                 </Flex>
+                <Button colorScheme="blue" onClick={handleSubmit} m={2}>Créer la catégorie</Button>
                 {/* Afficher les catégories existantes */}
+                <Text>Liste des catégories existante (cliquez sur l'icône pour supprimer)</Text>
                 {existingCategories.map((category) => (
                     <Box
                         key={category.id}
