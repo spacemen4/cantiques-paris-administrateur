@@ -183,20 +183,20 @@ const ItemsPage = () => {
     setGenre("");
   };
 
-  const availablePaymentMethods = ["PayPal", "Mastercard", "Card", "Espece"];
+  const availablePaymentMethods = ["PayPal", "Mastercard", "Card", "Espèce"];
   return (
     <>
       <Header />
       <Box padding="10px">
         <Input
-          placeholder="Title"
+          placeholder="Titre"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           mb={4}
           required
         />
         <Input
-          placeholder="Lot Number"
+          placeholder="Numéro de lot"
           value={lotNumber}
           onChange={(e) => setLotNumber(e.target.value)}
           mb={4}
@@ -204,15 +204,15 @@ const ItemsPage = () => {
         />
         <Input
           type="datetime-local"
-          placeholder="Closing Time"
+          placeholder="Heure de clôture"
           value={closingTime}
           onChange={(e) => setClosingTime(e.target.value)}
           mb={4}
           required
         />
-        {/* Category and Subcategory selection */}
+        {/* Sélection de la catégorie et de la sous-catégorie */}
         <Select
-          placeholder="Select Category"
+          placeholder="Sélectionner une catégorie"
           value={selectedCategory}
           onChange={(e) => {
             setSelectedCategory(e.target.value);
@@ -228,7 +228,7 @@ const ItemsPage = () => {
           ))}
         </Select>
         <Select
-          placeholder="Select Subcategory"
+          placeholder="Sélectionner une sous-catégorie"
           value={selectedSubcategory}
           onChange={(e) => setSelectedSubcategory(e.target.value)}
           mb={4}
@@ -244,7 +244,7 @@ const ItemsPage = () => {
 
 
         <Input
-          placeholder="Current Offer"
+          placeholder="Offre actuelle"
           type="number"
           value={currentOffer}
           onChange={(e) => setCurrentOffer(e.target.value)}
@@ -252,21 +252,21 @@ const ItemsPage = () => {
           required
         />
         <Input
-          placeholder="Estimated Gallery Value"
+          placeholder="Valeur estimée en galerie"
           value={estimatedGalleryValue}
           onChange={(e) => setEstimatedGalleryValue(e.target.value)}
           mb={4}
           required
         />
         <Input
-          placeholder="Selected By"
+          placeholder="Sélectionné par"
           value={selectedBy}
           onChange={(e) => setSelectedBy(e.target.value)}
           mb={4}
           required
         />
         <Input
-          placeholder="Buyer Protection Fee"
+          placeholder="Frais de protection de l'acheteur"
           value={buyerProtectionFee}
           onChange={(e) => setBuyerProtectionFee(e.target.value)}
           mb={4}
@@ -281,27 +281,27 @@ const ItemsPage = () => {
           ))}
         </CheckboxGroup>
         <Input
-          placeholder="Item Description"
+          placeholder="Description de l'article"
           value={itemDescription}
           onChange={(e) => setItemDescription(e.target.value)}
           mb={4}
           required
         />
         <Input
-          placeholder="Legal Information"
+          placeholder="Informations légales"
           value={legalInformation}
           onChange={(e) => setLegalInformation(e.target.value)}
           mb={4}
           required
         />
         <Input
-          placeholder="Brand"
+          placeholder="Marque"
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
           mb={4}
         />
         <Input
-          placeholder="Weight"
+          placeholder="Poids"
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
           mb={4}
@@ -319,7 +319,7 @@ const ItemsPage = () => {
           mb={4}
         />
         <Input
-          placeholder="Metal"
+          placeholder="Métal"
           value={metal}
           onChange={(e) => setMetal(e.target.value)}
           mb={4}
@@ -330,18 +330,18 @@ const ItemsPage = () => {
           onChange={(e) => setGenre(e.target.value)}
           mb={4}
         />
-        {/* File upload */}
+        {/* Téléchargement de fichiers */}
         <FormControl mb={4} required>
-          <FormLabel>Upload Image</FormLabel>
+          <FormLabel>Télécharger une image</FormLabel>
           <Input type="file" onChange={handleFileChange} required />
-          <FormHelperText>Upload an image for the item.</FormHelperText>
+          <FormHelperText>Téléchargez une image pour l'article.</FormHelperText>
         </FormControl>
         <Button colorScheme="blue" onClick={handleSubmit} mb={4}>
-          Create Item
+          Créer l'article
         </Button>
 
-        {/* Toast for displaying success or error messages */}
-        {/* You can implement the toast here */}
+        {/* Toast pour afficher les messages de succès ou d'erreur */}
+        {/* Vous pouvez implémenter le toast ici */}
         <ItemsList/>
 
       </Box>
