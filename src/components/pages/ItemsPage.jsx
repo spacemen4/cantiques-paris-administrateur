@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-  Box, Input, Select, Button, useToast, FormControl, FormLabel, FormHelperText, Checkbox, CheckboxGroup, Heading,
+  Box, Input, Select, Button, useToast, FormControl, FormLabel, FormHelperText, Checkbox, CheckboxGroup, Text,
 } from "@chakra-ui/react";
 import { supabase } from "../../../supabase";
 import Header from "../Header";
@@ -263,7 +263,7 @@ const ItemsPage = () => {
           mb={4}
           required
         />
-        <Heading>Méthode de paiement</Heading>
+        <Text>Méthode de paiement</Text>
         <CheckboxGroup value={paymentMethods} onChange={setPaymentMethods} mb={4} required>
           {availablePaymentMethods.map((method) => (
             <Checkbox key={method} value={method}>
