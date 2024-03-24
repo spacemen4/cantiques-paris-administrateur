@@ -16,10 +16,10 @@ const Header = () => {
           Catégories
         </Button>
         <Button variant="ghost" colorScheme="blue" onClick={() => handleButtonClick("/subcategories")}>
-          SubCatégories
+          Sous-Catégories
         </Button>
         <Button variant="ghost" colorScheme="purple" onClick={() => handleButtonClick("/items")}>
-          Items
+          Items à vendre
         </Button>
         {/* Add button for AddColumnForm */}
         <Button variant="ghost" colorScheme="green" onClick={() => handleButtonClick("/add-column")}>
