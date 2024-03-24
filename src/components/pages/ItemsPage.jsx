@@ -20,14 +20,14 @@ const ItemsPage = () => {
   const [legalInformation, setLegalInformation] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
-  const [imageFile, setImageFile] = useState(null); // New state for image file
-  const [imageUrl, setImageUrl] = useState(""); // New state for image URL
-  const [brand, setBrand] = useState(""); // New state for brand
-  const [weight, setWeight] = useState(""); // New state for weight
-  const [dimensions, setDimensions] = useState(""); // New state for dimensions
-  const [pierre, setPierre] = useState(""); // New state for pierre
-  const [metal, setMetal] = useState(""); // New state for metal
-  const [genre, setGenre] = useState(""); // New state for genre
+  const [imageFile, setImageFile] = useState(null); // Nouvel état pour le fichier image
+  const [imageUrl, setImageUrl] = useState(""); // Nouvel état pour l'URL de l'image
+  const [brand, setBrand] = useState(""); // Nouvel état pour la marque
+  const [weight, setWeight] = useState(""); // Nouvel état pour le poids
+  const [dimensions, setDimensions] = useState(""); // Nouvel état pour les dimensions
+  const [pierre, setPierre] = useState(""); // Nouvel état pour la pierre
+  const [metal, setMetal] = useState(""); // Nouvel état pour le métal
+  const [genre, setGenre] = useState(""); // Nouvel état pour le genre
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const toast = useToast();
@@ -44,7 +44,7 @@ const ItemsPage = () => {
       }
       setCategories(categoriesData || []);
     } catch (error) {
-      console.error("Error fetching categories:", error.message);
+      console.error("Erreur lors de la récupération des catégories :", error.message);
     }
   };
 
@@ -53,13 +53,13 @@ const ItemsPage = () => {
       const { data: subcategoriesData, error: subcategoriesError } = await supabase
         .from("subcategories")
         .select("*")
-        .eq("category_id", categoryId); // Filter subcategories by the selected category ID
+        .eq("category_id", categoryId); // Filtrer les sous-catégories par l'ID de catégorie sélectionné
       if (subcategoriesError) {
         throw subcategoriesError;
       }
       setSubcategories(subcategoriesData || []);
     } catch (error) {
-      console.error("Error fetching subcategories:", error.message);
+      console.error("Erreur lors de la récupération des sous-catégories :", error.message);
     }
   };
 
@@ -79,9 +79,9 @@ const ItemsPage = () => {
       throw fileError;
     }
 
-    // Construct the URL directly
+    // Construire l'URL directement
     const imageUrl = `https://tzfuvfxjjcywdrgivqzq.supabase.co/storage/v1/object/public/items-images/images/${uniqueFileName}`;
-    setImageUrl(imageUrl); // Set the imageUrl state here
+    setImageUrl(imageUrl); // Définir l'état imageUrl ici
     return imageUrl;
   };
 
@@ -89,13 +89,13 @@ const ItemsPage = () => {
   const handleSubmit = async () => {
     try {
       const uploadedImageUrl = await uploadImage();
-      // After successful image upload, continue with item creation
-      createItem(uploadedImageUrl); // Pass uploadedImageUrl to createItem
+      // Après le téléchargement réussi de l'image, continuer avec la création de l'article
+      createItem(uploadedImageUrl); // Passer uploadedImageUrl à createItem
     } catch (error) {
-      console.error("Error uploading image:", error.message);
+      console.error("Erreur lors du téléchargement de l'image :", error.message);
       toast({
-        title: "Error",
-        description: "Failed to upload image",
+        title: "Erreur",
+        description: "Échec du téléchargement de l'image",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -138,21 +138,21 @@ const ItemsPage = () => {
         }
 
         toast({
-            title: "Item created",
+            title: "Article créé",
             status: "success",
             duration: 3000,
             isClosable: true,
         });
 
-        // Clear form fields and reset image state
+        // Effacer les champs du formulaire et réinitialiser l'état de l'image
         clearFormFields();
         setImageUrl("");
     } catch (error) {
-        console.error("Error creating item:", error.message);
-        console.log("Error details:", error.details); // Log error details to console
+        console.error("Erreur lors de la création de l'article :", error.message);
+        console.log("Détails de l'erreur :", error.details); // Journaliser les détails de l'erreur dans la console
         toast({
-            title: "Error",
-            description: "Echec de la création de l'item car tous les champs sont requis",
+            title: "Erreur",
+            description: "Échec de la création de l'article",
             status: "error",
             duration: 3000,
             isClosable: true,
@@ -181,7 +181,7 @@ const ItemsPage = () => {
     setGenre("");
   };
 
-  const availablePaymentMethods = ["PayPal", "Mastercard", "Card", "Espèce"];
+  const availablePaymentMethods = ["PayPal", "Mastercard", "Carte", "Espèce"];
   return (
     <>
       <Header />
