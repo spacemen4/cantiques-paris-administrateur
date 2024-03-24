@@ -13,6 +13,7 @@ const SubcategoriesPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [subCategoryPath, setSubCategoryPath] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -83,61 +84,65 @@ const SubcategoriesPage = () => {
     return imageUrl;
   };
 
-  const handleSubmit = async () => {
-    try {
-      const uploadedImageUrl = await uploadImage();
-      // Appeler finalizeCreation directement après le téléchargement réussi de l'image
-      finalizeCreation(uploadedImageUrl); // Passer l'URL de l'image téléchargée à finalizeCreation
-    } catch (error) {
-      console.error("Erreur lors du téléchargement de l'image :", error.message);
-      toast({
-        title: "Erreur",
-        description: "Échec du téléchargement de l'image",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
+  // In handleSubmit, pass the path variable directly to finalizeCreation
+const handleSubmit = async () => {
+  try {
+    const uploadedImageUrl = await uploadImage();
+    const path = subCategoryName.toLowerCase();
+    setSubCategoryPath(path); // You can still set it if you need it elsewhere in your component
+    finalizeCreation(uploadedImageUrl, path); // Pass path directly here
+  } catch (error) {
+    console.error("Erreur lors du téléchargement de l'image :", error.message);
+    toast({
+      title: "Erreur",
+      description: "Échec du téléchargement de l'image",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
+};
+
+// Adjust finalizeCreation to accept path as an argument
+const finalizeCreation = async (uploadedImageUrl, path) => {
+  try {
+    const { data, error } = await supabase
+      .from("subcategories")
+      .insert({
+        name: subCategoryName,
+        category_id: selectedCategory,
+        image_url: uploadedImageUrl,
+        path: path, // Use the path argument directly
       });
+
+    if (error) {
+      throw error;
     }
-  };
 
-  const finalizeCreation = async (uploadedImageUrl) => {
-    try {
-      // Utiliser l'URL de l'image téléchargée pour la création de la sous-catégorie
-      const { data, error } = await supabase
-        .from("subcategories")
-        .insert({
-          name: subCategoryName,
-          category_id: selectedCategory,
-          image_url: uploadedImageUrl // Utiliser l'URL de l'image téléchargée ici
-        });
+    toast({
+      title: "Sous-catégorie créée",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
 
-      if (error) {
-        throw error;
-      }
-
-      toast({
-        title: "Sous-catégorie créée",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-
-      // Réinitialiser l'état du formulaire
-      setSubCategoryName("");
-      setSelectedCategory("");
-      setImageFile(null);
-      setImageUrl(""); // Réinitialiser l'état de l'URL de l'image
-    } catch (error) {
-      console.error("Erreur lors de la création de la sous-catégorie :", error.message);
-      toast({
-        title: "Erreur",
-        description: "Échec de la création de la sous-catégorie",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
-  };
+    // Reset form state
+    setSubCategoryName("");
+    setSelectedCategory("");
+    setImageFile(null);
+    setImageUrl("");
+    setSubCategoryPath("");
+  } catch (error) {
+    console.error("Erreur lors de la création de la sous-catégorie :", error.message);
+    toast({
+      title: "Erreur",
+      description: "Échec de la création de la sous-catégorie",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
+};
 
   const handleDelete = async (id) => {
     try {
@@ -169,7 +174,7 @@ const SubcategoriesPage = () => {
     <>
       <Header />
       <Box padding="10px">
-      <Select
+        <Select
           placeholder="Sélectionnez une catégorie"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
@@ -192,7 +197,7 @@ const SubcategoriesPage = () => {
           <Input type="file" onChange={handleFileChange} />
           <FormHelperText>Téléchargez une image pour la sous-catégorie.</FormHelperText>
         </FormControl>
-        <Button colorScheme="blue" onClick={handleSubmit}>Télécharger l'image</Button>
+        <Button colorScheme="blue" onClick={handleSubmit}>Créer la sous-catégorie</Button>
       </Box>
       <Box mt={10}>
         {subcategories.map((subcat) => (
