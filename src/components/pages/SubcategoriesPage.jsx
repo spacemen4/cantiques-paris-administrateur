@@ -85,23 +85,24 @@ const SubcategoriesPage = () => {
   };
 
   // In handleSubmit, pass the path variable directly to finalizeCreation
-const handleSubmit = async () => {
-  try {
-    const uploadedImageUrl = await uploadImage();
-    const path = subCategoryName.toLowerCase();
-    setSubCategoryPath(path); // You can still set it if you need it elsewhere in your component
-    finalizeCreation(uploadedImageUrl, path); // Pass path directly here
-  } catch (error) {
-    console.error("Erreur lors du téléchargement de l'image :", error.message);
-    toast({
-      title: "Erreur",
-      description: "Échec du téléchargement de l'image",
-      status: "error",
-      duration: 3000,
-      isClosable: true,
-    });
-  }
-};
+  const handleSubmit = async () => {
+    try {
+      const uploadedImageUrl = await uploadImage();
+      // Convert the subCategoryName to lowercase and then URL encode it
+      const path = encodeURIComponent(subCategoryName.toLowerCase());
+      setSubCategoryPath(path); // Although this is set here, it's used directly in the finalizeCreation call
+      finalizeCreation(uploadedImageUrl, path); // Pass the URL-encoded path directly here
+    } catch (error) {
+      console.error("Erreur lors du téléchargement de l'image :", error.message);
+      toast({
+        title: "Erreur",
+        description: "Échec du téléchargement de l'image",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };  
 
 // Adjust finalizeCreation to accept path as an argument
 const finalizeCreation = async (uploadedImageUrl, path) => {
