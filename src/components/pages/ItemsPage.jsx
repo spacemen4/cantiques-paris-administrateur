@@ -12,10 +12,9 @@ const ItemsPage = () => {
   const [lotNumber, setLotNumber] = useState("");
   const [closingTime, setClosingTime] = useState("");
   const [currentOffer, setCurrentOffer] = useState("");
-  const [noReservePrice, setNoReservePrice] = useState(false);
+
   const [estimatedGalleryValue, setEstimatedGalleryValue] = useState("");
   const [selectedBy, setSelectedBy] = useState("");
-  const [buyerProtectionFee, setBuyerProtectionFee] = useState("");
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [itemDescription, setItemDescription] = useState("");
   const [legalInformation, setLegalInformation] = useState("");
@@ -107,69 +106,68 @@ const ItemsPage = () => {
 
   const createItem = async (uploadedImageUrl) => {
     try {
-      const itemId = uuidv4();
-      const currentOfferValue = currentOffer !== "" ? parseInt(currentOffer) : null;
+        const itemId = uuidv4();
+        const currentOfferValue = currentOffer !== "" ? parseInt(currentOffer) : null;
 
-      const { data, error } = await supabase.from("items").insert({
-        id: itemId,
-        title: title,
-        lot_number: lotNumber,
-        closing_time:       closingTime,
-        current_offer: currentOfferValue,
-        no_reserve_price: noReservePrice,
-        estimated_gallery_value: estimatedGalleryValue,
-        selected_by: selectedBy,
-        buyer_protection_fee: buyerProtectionFee,
-        payment_methods: paymentMethods,
-        item_description: itemDescription,
-        legal_information: legalInformation,
-        category_id: selectedCategory,
-        subcategory_id: selectedSubcategory,
-        image_url: uploadedImageUrl,
-        brand: brand,
-        weight: weight,
-        dimensions: dimensions,
-        pierre: pierre,
-        metal: metal,
-        genre: genre,
-      });
+        const { data, error } = await supabase.from("items").insert({
+            id: itemId,
+            title: title,
+            lot_number: lotNumber,
+            closing_time: closingTime,
+            current_offer: currentOfferValue,
 
-      if (error) {
-        throw error;
-      }
+            estimated_gallery_value: estimatedGalleryValue,
+            selected_by: selectedBy,
 
-      toast({
-        title: "Item created",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
+            payment_methods: paymentMethods,
+            item_description: itemDescription,
+            legal_information: legalInformation,
+            category_id: selectedCategory,
+            subcategory_id: selectedSubcategory,
+            image_url: uploadedImageUrl,
+            brand: brand,
+            weight: weight,
+            dimensions: dimensions,
+            pierre: pierre,
+            metal: metal,
+            genre: genre,
+        });
 
-      // Clear form fields and reset image state
-      clearFormFields();
-      setImageUrl("");
+        if (error) {
+            throw error;
+        }
+
+        toast({
+            title: "Item created",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+        });
+
+        // Clear form fields and reset image state
+        clearFormFields();
+        setImageUrl("");
     } catch (error) {
-      console.error("Error creating item:", error.message);
-      toast({
-        title: "Error",
-        description: "Failed to create item",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+        console.error("Error creating item:", error.message);
+        console.log("Error details:", error.details); // Log error details to console
+        toast({
+            title: "Error",
+            description: "Failed to create item",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+        });
     }
-  };
-
+};
 
   const clearFormFields = () => {
     setTitle("");
     setLotNumber("");
     setClosingTime("");
     setCurrentOffer("");
-    setNoReservePrice(false);
+
     setEstimatedGalleryValue("");
     setSelectedBy("");
-    setBuyerProtectionFee("");
     setPaymentMethods([]);
     setItemDescription("");
     setLegalInformation("");
@@ -262,13 +260,6 @@ const ItemsPage = () => {
           placeholder="Sélectionné par"
           value={selectedBy}
           onChange={(e) => setSelectedBy(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          placeholder="Frais de protection de l'acheteur"
-          value={buyerProtectionFee}
-          onChange={(e) => setBuyerProtectionFee(e.target.value)}
           mb={4}
           required
         />
