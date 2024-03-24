@@ -153,7 +153,7 @@ const CategoriesPage = () => {
                 </Flex>
                 <Button colorScheme="blue" onClick={handleSubmit} m={2}>Créer la catégorie</Button>
                 {/* Afficher les catégories existantes */}
-                <Text>Liste des catégories existante (cliquez sur l'icône pour supprimer)</Text>
+                <Text>Liste des catégories existantes (cliquez sur <MdDeleteForever style={{ display: 'inline' }}/> pour supprimer)</Text>
                 {existingCategories.map((category) => (
                     <Box
                         key={category.id}
