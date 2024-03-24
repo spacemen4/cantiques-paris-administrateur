@@ -152,7 +152,7 @@ const ItemsPage = () => {
         console.log("Error details:", error.details); // Log error details to console
         toast({
             title: "Error",
-            description: "Failed to create item",
+            description: "Echec de la création de l'item car tous les champs sont requis",
             status: "error",
             duration: 3000,
             isClosable: true,
