@@ -29,37 +29,37 @@ const SubcategoriesPage = () => {
         .from('subcategories')
         .select('id, name, image_url, category_id, categories (name)')
         .order('created_at', { ascending: false });
-          
+
       if (error) {
         throw error;
       }
-  
+
       setSubcategories(data);
     } catch (error) {
-      console.error('Error fetching subcategories:', error.message);
+      console.error('Erreur lors de la récupération des sous-catégories :', error.message);
       toast({
-        title: "Error",
-        description: "Failed to fetch subcategories",
+        title: "Erreur",
+        description: "Échec de la récupération des sous-catégories",
         status: "error",
         duration: 3000,
         isClosable: true,
       });
     }
   };
-  
+
 
 
   const fetchCategories = async () => {
     try {
-      // Fetch categories from the 'categories' table
+      // Récupérer les catégories depuis la table 'categories'
       const { data, error } = await supabase.from("categories").select("*");
       if (error) {
         throw error;
       }
-      // Update the state with fetched categories
+      // Mettre à jour l'état avec les catégories récupérées
       setCategories(data || []);
     } catch (error) {
-      console.error("Error fetching categories:", error.message);
+      console.error("Erreur lors de la récupération des catégories :", error.message);
     }
   };
 
@@ -77,7 +77,7 @@ const SubcategoriesPage = () => {
       throw fileError;
     }
 
-    // Construct the URL directly
+    // Construire l'URL directement
     const imageUrl = `https://tzfuvfxjjcywdrgivqzq.supabase.co/storage/v1/object/public/subcategory-images/images/${uniqueFileName}`;
     setImageUrl(imageUrl);
     return imageUrl;
@@ -86,13 +86,13 @@ const SubcategoriesPage = () => {
   const handleSubmit = async () => {
     try {
       const uploadedImageUrl = await uploadImage();
-      // Call finalizeCreation directly after successful image upload
-      finalizeCreation(uploadedImageUrl); // Pass the uploaded image URL to finalizeCreation
+      // Appeler finalizeCreation directement après le téléchargement réussi de l'image
+      finalizeCreation(uploadedImageUrl); // Passer l'URL de l'image téléchargée à finalizeCreation
     } catch (error) {
-      console.error("Error uploading image:", error.message);
+      console.error("Erreur lors du téléchargement de l'image :", error.message);
       toast({
-        title: "Error",
-        description: "Failed to upload image",
+        title: "Erreur",
+        description: "Échec du téléchargement de l'image",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -102,13 +102,13 @@ const SubcategoriesPage = () => {
 
   const finalizeCreation = async (uploadedImageUrl) => {
     try {
-      // Use the uploaded image URL for subcategory creation
+      // Utiliser l'URL de l'image téléchargée pour la création de la sous-catégorie
       const { data, error } = await supabase
         .from("subcategories")
         .insert({
           name: subCategoryName,
           category_id: selectedCategory,
-          image_url: uploadedImageUrl // Use the uploaded image URL here
+          image_url: uploadedImageUrl // Utiliser l'URL de l'image téléchargée ici
         });
 
       if (error) {
@@ -116,22 +116,22 @@ const SubcategoriesPage = () => {
       }
 
       toast({
-        title: "Subcategory created",
+        title: "Sous-catégorie créée",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
 
-      // Reset the form state
+      // Réinitialiser l'état du formulaire
       setSubCategoryName("");
       setSelectedCategory("");
       setImageFile(null);
-      setImageUrl(""); // Reset the image URL state
+      setImageUrl(""); // Réinitialiser l'état de l'URL de l'image
     } catch (error) {
-      console.error("Error creating subcategory:", error.message);
+      console.error("Erreur lors de la création de la sous-catégorie :", error.message);
       toast({
-        title: "Error",
-        description: "Failed to create subcategory",
+        title: "Erreur",
+        description: "Échec de la création de la sous-catégorie",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -145,19 +145,19 @@ const SubcategoriesPage = () => {
       if (error) {
         throw error;
       }
-      // Remove the deleted subcategory from the state
+      // Supprimer la sous-catégorie supprimée de l'état
       setSubcategories(subcategories.filter(subcat => subcat.id !== id));
       toast({
-        title: "Subcategory deleted",
+        title: "Sous-catégorie supprimée",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
     } catch (error) {
-      console.error("Error deleting subcategory:", error.message);
+      console.error("Erreur lors de la suppression de la sous-catégorie :", error.message);
       toast({
-        title: "Error",
-        description: "Failed to delete subcategory",
+        title: "Erreur",
+        description: "Échec de la suppression de la sous-catégorie",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -169,14 +169,8 @@ const SubcategoriesPage = () => {
     <>
       <Header />
       <Box padding="10px">
-        <Input
-          placeholder="Enter subcategory name"
-          value={subCategoryName}
-          onChange={(e) => setSubCategoryName(e.target.value)}
-          mb={4}
-        />
-        <Select
-          placeholder="Select category"
+      <Select
+          placeholder="Sélectionnez une catégorie"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
           mb={4}
@@ -187,26 +181,32 @@ const SubcategoriesPage = () => {
             </option>
           ))}
         </Select>
+        <Input
+          placeholder="Entrez le nom de la sous-catégorie que vous souhaitez créer"
+          value={subCategoryName}
+          onChange={(e) => setSubCategoryName(e.target.value)}
+          mb={4}
+        />
         <FormControl mb={4}>
-          <FormLabel>Upload Image</FormLabel>
+          <FormLabel>Télécharger une image</FormLabel>
           <Input type="file" onChange={handleFileChange} />
-          <FormHelperText>Upload an image for the subcategory.</FormHelperText>
+          <FormHelperText>Téléchargez une image pour la sous-catégorie.</FormHelperText>
         </FormControl>
-        <Button colorScheme="blue" onClick={handleSubmit}>Upload Image</Button>
+        <Button colorScheme="blue" onClick={handleSubmit}>Télécharger l'image</Button>
       </Box>
       <Box mt={10}>
         {subcategories.map((subcat) => (
           <Box key={subcat.id} p={5} shadow="md" borderWidth="1px" mb={4}>
             <Box display="flex" alignItems="center">
               <Box flexShrink={0}>
-                <img src={subcat.image_url} alt={`Image for ${subcat.name}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+                <img src={subcat.image_url} alt={`Image pour ${subcat.name}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
               </Box>
               <Box ml={4}>
                 <Box fontWeight="bold" letterSpacing="wide" fontSize="xl" textTransform="uppercase">
                   {subcat.name}
                 </Box>
-                <Box>Category: {subcat.categories.name}</Box>
-                <Box>Category ID: {subcat.category_id}</Box>
+                <Box>Catégorie : {subcat.categories.name}</Box>
+                <Box>ID de la catégorie : {subcat.category_id}</Box>
               </Box>
               <Button ml={4} colorScheme="red" onClick={() => handleDelete(subcat.id)}>
                 <MdDeleteForever />
