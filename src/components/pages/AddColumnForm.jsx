@@ -1,85 +1,54 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Input,
-  Button,
-  useToast,
-  FormControl,
-  FormLabel,
-  FormHelperText,
-} from "@chakra-ui/react";
+import React, { useState } from 'react';
 import { supabase } from "../../../supabase";
-import Header from "../Header";
 
 const AddColumnForm = () => {
-  const [columnName, setColumnName] = useState("");
-  const [columnType, setColumnType] = useState("");
-  const toast = useToast();
+  const [columnName, setColumnName] = useState('');
+  const [dataType, setDataType] = useState('text');
 
-  const handleAddColumn = async () => {
+  const handleColumnNameChange = (e) => {
+    setColumnName(e.target.value);
+  };
+
+  const handleDataTypeChange = (e) => {
+    setDataType(e.target.value);
+  };
+
+  const handleAddColumn = async (e) => {
+    e.preventDefault();
     try {
-      // Perform validation of input values if necessary
-
-      // Make the database alteration
-      const { error } = await supabase.from("items").alter({
-        addColumn: { [columnName]: columnType },
-      });
-
+      // Construct the SQL query to alter table schema
+      const sql = `ALTER TABLE items ADD COLUMN ${columnName} ${dataType}`;
+      const { error } = await supabase.from('items').execute(sql);
       if (error) {
         throw error;
       }
-
-      // Display success message
-      toast({
-        title: "Column Added",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-
-      // Reset form fields
-      setColumnName("");
-      setColumnType("");
+      alert('Column added successfully!');
     } catch (error) {
-      console.error("Error adding column:", error.message);
-      toast({
-        title: "Error",
-        description: "Failed to add column",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+      console.error('Error adding column:', error.message);
+      alert('Error adding column. Please check console for details.');
     }
   };
 
   return (
-    <>
-      <Header />
-      <Box padding="10px">
-        <FormControl mb={4}>
-          <FormLabel>Column Name</FormLabel>
-          <Input
-            value={columnName}
-            onChange={(e) => setColumnName(e.target.value)}
-            placeholder="Enter column name"
-          />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>Column Type</FormLabel>
-          <Input
-            value={columnType}
-            onChange={(e) => setColumnType(e.target.value)}
-            placeholder="Enter column type"
-          />
-          <FormHelperText>
-            Please enter the data type for the new column (e.g., text, integer, boolean).
-          </FormHelperText>
-        </FormControl>
-        <Button colorScheme="blue" onClick={handleAddColumn} mb={4}>
-          Add Column
-        </Button>
-      </Box>
-    </>
+    <form onSubmit={handleAddColumn}>
+      <div>
+        <label>
+          Column Name:
+          <input type="text" value={columnName} onChange={handleColumnNameChange} />
+        </label>
+      </div>
+      <div>
+        <label>
+          Data Type:
+          <select value={dataType} onChange={handleDataTypeChange}>
+            <option value="text">Text</option>
+            <option value="integer">Integer</option>
+            {/* Add other data types as needed */}
+          </select>
+        </label>
+      </div>
+      <button type="submit">Add Column</button>
+    </form>
   );
 };
 

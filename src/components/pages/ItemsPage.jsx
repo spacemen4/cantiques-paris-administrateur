@@ -17,26 +17,18 @@ const ItemsPage = () => {
   const [selectedBy, setSelectedBy] = useState("");
   const [buyerProtectionFee, setBuyerProtectionFee] = useState("");
   const [paymentMethods, setPaymentMethods] = useState([]);
-  const [shippingToFrance, setShippingToFrance] = useState("");
-  const [shippingToPortugal, setShippingToPortugal] = useState("");
-  const [sellerName, setSellerName] = useState("");
-  const [location, setLocation] = useState("");
-  const [memberSince, setMemberSince] = useState("");
   const [itemDescription, setItemDescription] = useState("");
-  const [artistBiography, setArtistBiography] = useState("");
-  const [artworkTechnique, setArtworkTechnique] = useState("");
-  const [artworkSignature, setArtworkSignature] = useState("");
-  const [artworkYear, setArtworkYear] = useState("");
-  const [artworkCondition, setArtworkCondition] = useState("");
-  const [artworkDimensions, setArtworkDimensions] = useState("");
-  const [artworkOrigin, setArtworkOrigin] = useState("");
-  const [artworkPeriod, setArtworkPeriod] = useState("");
-  const [sellerRatings, setSellerRatings] = useState(null);
   const [legalInformation, setLegalInformation] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const [imageFile, setImageFile] = useState(null); // New state for image file
   const [imageUrl, setImageUrl] = useState(""); // New state for image URL
+  const [brand, setBrand] = useState(""); // New state for brand
+  const [weight, setWeight] = useState(""); // New state for weight
+  const [dimensions, setDimensions] = useState(""); // New state for dimensions
+  const [pierre, setPierre] = useState(""); // New state for pierre
+  const [metal, setMetal] = useState(""); // New state for metal
+  const [genre, setGenre] = useState(""); // New state for genre
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const toast = useToast();
@@ -117,38 +109,29 @@ const ItemsPage = () => {
     try {
       const itemId = uuidv4();
       const currentOfferValue = currentOffer !== "" ? parseInt(currentOffer) : null;
-      const sellerRatingsValue = sellerRatings !== "" ? parseInt(sellerRatings) : null;
 
       const { data, error } = await supabase.from("items").insert({
         id: itemId,
         title: title,
         lot_number: lotNumber,
-        closing_time: closingTime,
+        closing_time:       closingTime,
         current_offer: currentOfferValue,
         no_reserve_price: noReservePrice,
         estimated_gallery_value: estimatedGalleryValue,
         selected_by: selectedBy,
         buyer_protection_fee: buyerProtectionFee,
         payment_methods: paymentMethods,
-        shipping_to_france: shippingToFrance,
-        shipping_to_portugal: shippingToPortugal,
-        seller_name: sellerName,
-        location: location,
-        member_since: memberSince,
-        seller_ratings: sellerRatingsValue,
         item_description: itemDescription,
-        artist_biography: artistBiography,
-        artwork_technique: artworkTechnique,
-        artwork_signature: artworkSignature,
-        artwork_year: artworkYear,
-        artwork_condition: artworkCondition,
-        artwork_dimensions: artworkDimensions,
-        artwork_origin: artworkOrigin,
-        artwork_period: artworkPeriod,
         legal_information: legalInformation,
-        image_url: uploadedImageUrl,
         category_id: selectedCategory,
         subcategory_id: selectedSubcategory,
+        image_url: uploadedImageUrl,
+        brand: brand,
+        weight: weight,
+        dimensions: dimensions,
+        pierre: pierre,
+        metal: metal,
+        genre: genre,
       });
 
       if (error) {
@@ -188,24 +171,16 @@ const ItemsPage = () => {
     setSelectedBy("");
     setBuyerProtectionFee("");
     setPaymentMethods([]);
-    setShippingToFrance("");
-    setShippingToPortugal("");
-    setSellerName("");
-    setLocation("");
-    setMemberSince("");
-    setSellerRatings("");
     setItemDescription("");
-    setArtistBiography("");
-    setArtworkTechnique("");
-    setArtworkSignature("");
-    setArtworkYear("");
-    setArtworkCondition("");
-    setArtworkDimensions("");
-    setArtworkOrigin("");
-    setArtworkPeriod("");
     setLegalInformation("");
     setSelectedCategory("");
     setSelectedSubcategory("");
+    setBrand("");
+    setWeight("");
+    setDimensions("");
+    setPierre("");
+    setMetal("");
+    setGenre("");
   };
 
   const availablePaymentMethods = ["PayPal", "Mastercard", "Card", "Espece"];
@@ -235,17 +210,6 @@ const ItemsPage = () => {
           mb={4}
           required
         />
-        {/* Add other input fields for item details */}
-        <Select
-          placeholder="No Reserve Price"
-          value={noReservePrice}
-          onChange={(e) => setNoReservePrice(e.target.value)}
-          mb={4}
-          required
-        >
-          <option value={true}>Yes</option>
-          <option value={false}>No</option>
-        </Select>
         {/* Category and Subcategory selection */}
         <Select
           placeholder="Select Category"
@@ -317,110 +281,9 @@ const ItemsPage = () => {
           ))}
         </CheckboxGroup>
         <Input
-          placeholder="Shipping to France"
-          value={shippingToFrance}
-          onChange={(e) => setShippingToFrance(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          placeholder="Shipping to Portugal"
-          value={shippingToPortugal}
-          onChange={(e) => setShippingToPortugal(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          placeholder="Seller Name"
-          value={sellerName}
-          onChange={(e) => setSellerName(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          type="date"
-          placeholder="Member Since"
-          value={memberSince}
-          onChange={(e) => setMemberSince(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          placeholder="Seller Ratings"
-          type="number"
-          value={sellerRatings}
-          onChange={(e) => setSellerRatings(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
           placeholder="Item Description"
           value={itemDescription}
           onChange={(e) => setItemDescription(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          placeholder="Artist Biography"
-          value={artistBiography}
-          onChange={(e) => setArtistBiography(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          placeholder="Artwork Technique"
-          value={artworkTechnique}
-          onChange={(e) => setArtworkTechnique(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          placeholder="Artwork Signature"
-          value={artworkSignature}
-          onChange={(e) => setArtworkSignature(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          type="number"
-          placeholder="Artwork Year"
-          value={artworkYear}
-          onChange={(e) => setArtworkYear(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          placeholder="Artwork Condition"
-          value={artworkCondition}
-          onChange={(e) => setArtworkCondition(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          placeholder="Artwork Dimensions"
-          value={artworkDimensions}
-          onChange={(e) => setArtworkDimensions(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          placeholder="Artwork Origin"
-          value={artworkOrigin}
-          onChange={(e) => setArtworkOrigin(e.target.value)}
-          mb={4}
-          required
-        />
-        <Input
-          placeholder="Artwork Period"
-          value={artworkPeriod}
-          onChange={(e) => setArtworkPeriod(e.target.value)}
           mb={4}
           required
         />
@@ -430,6 +293,42 @@ const ItemsPage = () => {
           onChange={(e) => setLegalInformation(e.target.value)}
           mb={4}
           required
+        />
+        <Input
+          placeholder="Brand"
+          value={brand}
+          onChange={(e) => setBrand(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Weight"
+          value={weight}
+          onChange={(e) => setWeight(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Dimensions"
+          value={dimensions}
+          onChange={(e) => setDimensions(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Pierre"
+          value={pierre}
+          onChange={(e) => setPierre(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Metal"
+          value={metal}
+          onChange={(e) => setMetal(e.target.value)}
+          mb={4}
+        />
+        <Input
+          placeholder="Genre"
+          value={genre}
+          onChange={(e) => setGenre(e.target.value)}
+          mb={4}
         />
         {/* File upload */}
         <FormControl mb={4} required>
@@ -451,3 +350,4 @@ const ItemsPage = () => {
 };
 
 export default ItemsPage;
+
