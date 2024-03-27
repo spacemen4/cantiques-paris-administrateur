@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import { ChakraProvider, Button } from "@chakra-ui/react";
+import { ChakraProvider, Button, Box } from "@chakra-ui/react"; // Ajout de Box pour le positionnement
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import CategoriesPage from "./components/pages/CategoriesPage";
 import SubcategoriesPage from "./components/pages/SubcategoriesPage";
@@ -117,16 +117,16 @@ const App = () => {
   return (
     <ChakraProvider>
       <Router>
-        <div>
-          <Button onClick={handleLogout}>Déconnexion</Button> {/* Logout button */}
-          <Routes>
-            <Route path="/categories" element={<CategoriesPage />} />
-            <Route path="/subcategories" element={<SubcategoriesPage />} />
-            <Route path="/items" element={<ItemsPage />} />
-            <Route path="/add-column" element={<AddColumnForm />} />
-            <Route path="*" element={<CategoriesPage />} />
-          </Routes>
-        </div>
+        <Box position="absolute" top="0" right="0" m="4"> {/* Positionnement du coin supérieur droit avec une marge */}
+          <Button onClick={handleLogout} backgroundColor="blue.400">Déconnexion</Button> {/* Bouton de déconnexion avec couleur bleue */}
+        </Box>
+        <Routes>
+          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/subcategories" element={<SubcategoriesPage />} />
+          <Route path="/items" element={<ItemsPage />} />
+          <Route path="/add-column" element={<AddColumnForm />} />
+          <Route path="*" element={<CategoriesPage />} />
+        </Routes>
       </Router>
     </ChakraProvider>
   );
