@@ -44,11 +44,12 @@ const App = () => {
               style: {
                 label: {
                   fontWeight: "bold",
-                  fontSize: "30px",
+                  fontSize: "20px",
                   textAlign: "center",
                 },
-                button: { fontWeight: "bold", fontSize: "20px" },
+                button: { fontWeight: "bold", fontSize: "20px", backgroundColor:'blue' },
                 input: { fontWeight: "bold", fontSize: "20px" },
+                anchor: { fontWeight: "bold", fontSize: "16px"  }, 
               },
             }}
             providers={[""]}
