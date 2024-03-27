@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react"; // Import ChakraProvider
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { ChakraProvider, Button } from "@chakra-ui/react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import CategoriesPage from "./components/pages/CategoriesPage";
 import SubcategoriesPage from "./components/pages/SubcategoriesPage";
 import ItemsPage from "./components/pages/ItemsPage";
-import AddColumnForm from "./components/pages/AddColumnForm"; // Import AddColumnForm component
+import AddColumnForm from "./components/pages/AddColumnForm";
 import { Auth } from '@supabase/auth-ui-react';
-import { supabase } from "./../supabase"; // Adjust the path as needed
+import { supabase } from "./../supabase";
 
 const App = () => {
   const [session, setSession] = useState(null);
@@ -22,8 +22,11 @@ const App = () => {
     // No need to unsubscribe if the function is not provided
   }, []);
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
   if (!session) {
-    // Render authentication UI if no session
     return (
       <div
         style={{
@@ -34,8 +37,6 @@ const App = () => {
         }}
       >
         <div style={{ width: "80%" }}>
-
-
           <Auth
             supabaseClient={supabase}
             appearance={{
@@ -48,7 +49,6 @@ const App = () => {
                 },
                 button: { fontWeight: "bold", fontSize: "20px" },
                 input: { fontWeight: "bold", fontSize: "20px" },
-                // other styles
               },
             }}
             providers={[""]}
@@ -116,15 +116,16 @@ const App = () => {
   return (
     <ChakraProvider>
       <Router>
-        <Routes>
-          <Route path="/categories" element={<CategoriesPage />} />
-          <Route path="/subcategories" element={<SubcategoriesPage />} />
-          <Route path="/items" element={<ItemsPage />} />
-          {/* Route for AddColumnForm component */}
-          <Route path="/add-column" element={<AddColumnForm />} />
-          {/* Default route */}
-          <Route path="*" element={<CategoriesPage />} />
-        </Routes>
+        <div>
+          <Button onClick={handleLogout}>Déconnexion</Button> {/* Logout button */}
+          <Routes>
+            <Route path="/categories" element={<CategoriesPage />} />
+            <Route path="/subcategories" element={<SubcategoriesPage />} />
+            <Route path="/items" element={<ItemsPage />} />
+            <Route path="/add-column" element={<AddColumnForm />} />
+            <Route path="*" element={<CategoriesPage />} />
+          </Routes>
+        </div>
       </Router>
     </ChakraProvider>
   );
