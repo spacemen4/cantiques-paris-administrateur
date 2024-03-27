@@ -85,7 +85,7 @@ const ItemsList = () => {
             </Box>
           </Box>
           <Button colorScheme="red" onClick={() => handleDelete(item.id)}>
-            <MdDeleteForever /> Delete
+            <MdDeleteForever /> Supprimer
           </Button>
         </Box>
       ))}
